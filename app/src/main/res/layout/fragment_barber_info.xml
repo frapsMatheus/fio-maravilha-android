@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_orange"
+        android:layout_margin="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:id="@+id/tx_barber_image"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@color/colorOrangeTransparent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tx_barber_name"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="@style/TitleStyle"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tx_idade"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="@style/TitleStyle"
+                    android:textStyle="normal"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_bio"
+                android:textColor="@color/colorBlack"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:layout_margin="4dp"
+                android:text="uh da huad hudahu adhu adhu hu adhu adhu adhu adhu adhu adhu hu adhu @android:string/defaultMsisdnAlphaTag"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:text="Serviços:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView8"
+                    android:layout_weight="0"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="normal|bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="Barba, Selagem, Cabelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_servicos"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

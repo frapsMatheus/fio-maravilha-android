@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_service"
+                android:textAppearance="@style/TitleStyle"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:textSize="20sp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_service_price"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="4dp"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tx_checkbox"
+            android:layout_weight="1"
+            style="@android:style/Widget.CompoundButton.RadioButton" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineGray"
+        android:layout_marginTop="4dp">
+
+    </FrameLayout>
+
+</LinearLayout>

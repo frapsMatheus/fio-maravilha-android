@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:background="@drawable/round_orange"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:text="PASSO 1 DE 4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:textStyle="normal|bold"
+            android:textColor="@color/colorOrange"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:text="ESCOLHA OS SERVIÇOS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:background="@drawable/round_black_empty"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:text="O pagamento será feito na loja."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textColor="@color/colorBlack"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_marginTop="4dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:id="@+id/services_recyclerView"
+            android:scrollbars="vertical"
+            />
+
+        <Button
+            android:text="PRÓXIMO PASSO >"
+            android:layout_width="match_parent"
+            android:id="@+id/tx_proximo"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@color/colorBlack"
+            android:textColor="@color/colorOrange"
+            android:layout_weight="0"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
+</LinearLayout>

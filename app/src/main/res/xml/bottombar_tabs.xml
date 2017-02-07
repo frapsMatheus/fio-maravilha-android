@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_news"
+        icon="@drawable/ic_home"
+        title="Home" />
+    <tab
+        id="@+id/tab_schedule"
+        icon="@drawable/ic_agenda"
+        title="Agendar" />
+    <tab
+        id="@+id/tab_my_schedules"
+        icon="@drawable/ic_horarios"
+        title="Meus Horários" />
+    <tab
+        id="@+id/tab_option"
+        icon="@drawable/ic_opcoes"
+        title="Opções" />
+</tabs>
