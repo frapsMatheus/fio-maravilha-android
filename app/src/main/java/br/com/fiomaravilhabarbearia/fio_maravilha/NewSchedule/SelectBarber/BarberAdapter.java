@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,15 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
     private ArrayList<Barber> _barbers;
     private final SelectBarber _fragment;
 
+    private int currentSelected = -1;
+
 
     BarberAdapter(SelectBarber fragment, ArrayList<Barber> barbers) {
         _barbers = barbers;
         _fragment = fragment;
     }
+
+
 
     @Override
     public BarberCell onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,9 +40,21 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
 
     @Override
     public void onBindViewHolder(BarberCell holder, int position) {
+        holder.onBind = true;
+        if (currentSelected == position) {
+            holder.selectBarber();
+        } else {
+            holder.deselectBarber();
+        }
         holder.setBarber(_barbers.get(position), v -> {
             _fragment.showBarberInfo(_barbers.get(position));
+        }, (buttonView, isChecked) -> {
+            if (currentSelected != -1 && currentSelected != position && !holder.onBind) {
+                notifyItemChanged(currentSelected);
+            }
+            currentSelected = position;
         });
+        holder.onBind = false;
     }
 
     @Override

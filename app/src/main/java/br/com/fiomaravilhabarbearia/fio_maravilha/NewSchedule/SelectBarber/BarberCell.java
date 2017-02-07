@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,12 +31,17 @@ public class BarberCell extends RecyclerView.ViewHolder {
     @BindView(R.id.profile_image)
     ImageView _barberImage;
 
+    @BindView(R.id.tx_checkbox)
+    CheckBox _checkbox;
+
+    public boolean onBind = false;
+
     BarberCell(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
-    public void setBarber(Barber barber, View.OnClickListener click) {
+    public void setBarber(Barber barber, View.OnClickListener click, CheckBox.OnCheckedChangeListener checked) {
         _barberName.setText(barber.name);
         String udata="Ver Perfil";
         SpannableString content = new SpannableString(udata);
@@ -65,5 +72,14 @@ public class BarberCell extends RecyclerView.ViewHolder {
                 }
             });
         }
+        _checkbox.setOnCheckedChangeListener(checked);
+    }
+
+    public void selectBarber() {
+        _checkbox.setChecked(true);
+    }
+
+    public void deselectBarber() {
+        _checkbox.setChecked(false);
     }
 }

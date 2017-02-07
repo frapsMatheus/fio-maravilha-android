@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.greenrobot.eventbus.EventBus;
-
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
