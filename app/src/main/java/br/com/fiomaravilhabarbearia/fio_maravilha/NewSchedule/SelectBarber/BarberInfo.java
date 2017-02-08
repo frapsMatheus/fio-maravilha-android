@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Calendar;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
+import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
@@ -58,7 +59,14 @@ public class BarberInfo extends Fragment {
         setServicos(_barber);
         setAge(_barber);
         setImage(_barber);
+        ((MainActivity)getActivity()).setCurrentFragmentAgendamento(this,2);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _unbinder.unbind();
     }
 
     private void setImage(Barber barber) {

@@ -39,6 +39,7 @@ public class SelectBarber extends Fragment {
         _adapter = new BarberAdapter(this, Barbers.getInstace()._barbers);
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+        ((MainActivity)getActivity()).setCurrentFragmentAgendamento(this,1);
         return view;
     }
 
@@ -50,7 +51,7 @@ public class SelectBarber extends Fragment {
 
     public void showBarberInfo(Barber barber) {
         AgendamentoInstance.getInstace()._chosenBarber = barber;
-        ((MainActivity)getActivity()).changeFragment(new BarberInfo(), "Barber_Info");
+        ((MainActivity)getActivity()).changeFragment(new BarberInfo());
     }
 
     @Override

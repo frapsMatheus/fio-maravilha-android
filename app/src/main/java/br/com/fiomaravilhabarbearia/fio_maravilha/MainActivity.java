@@ -1,6 +1,7 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,37 +18,66 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottomBar)
     BottomBar _bottomBar;
 
+    FeedFragment _feedsFragment;
+
+    Fragment _agendamentoFragment;
+    int _currentStateAgendamento = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        _feedsFragment = new FeedFragment();
+        _agendamentoFragment = new AddServicesFragment();
         _bottomBar.setOnTabSelectListener(tabId -> {
             Fragment fragment;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
             switch (tabId) {
                 case R.id.tab_news:
-                    fragment = new FeedFragment();
+                    fragment = _feedsFragment; // f1_container is your FrameLayout container
                     break;
                 case R.id.tab_schedule:
-                    fragment = new AddServicesFragment();
+                    getFragmentManager().popBackStack(_agendamentoFragment.getClass().getName(),0);
+                    fragment = _agendamentoFragment;
+                    if (_currentStateAgendamento == 0) {
+                        ft.addToBackStack(null);
+                    }
                     break;
                 default:
-                    fragment = new AddServicesFragment();
+                    fragment = _agendamentoFragment;
             }
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_container, fragment); // f1_container is your FrameLayout container
+            ft.replace(R.id.main_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.addToBackStack(null);
             ft.commit();
         });
     }
 
-    public void changeFragment(Fragment fragment, String fragmentTag) {
+    public void changeFragment(Fragment fragment) {
+        String backStateName = fragment.getClass().getName();
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_left,
                 R.animator.enter_from_left,R.animator.exit_to_right);
-        ft.replace(R.id.main_container, fragment, fragmentTag);
-        ft.addToBackStack(fragmentTag);
+        ft.replace(R.id.main_container, fragment, backStateName);
+        ft.addToBackStack(backStateName);
         ft.commit();
+    }
+
+    public void setCurrentFragmentAgendamento(Fragment fragment, int tag) {
+        _agendamentoFragment = fragment;
+        _currentStateAgendamento = tag;
+    }
+
+    @Override
+    public void onBackPressed() {
+        switch (_bottomBar.getCurrentTabId()) {
+            case R.id.tab_schedule:
+                if (_currentStateAgendamento > 0) {
+                    super.onBackPressed();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

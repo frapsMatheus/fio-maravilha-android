@@ -33,12 +33,13 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_height="wrap_content"
         app:srcCompat="@drawable/background"
         android:id="@+id/feed_image"
         android:layout_width="match_parent"
         android:adjustViewBounds="true"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginBottom="13dp"
+        android:layout_height="260dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:text="TextView"

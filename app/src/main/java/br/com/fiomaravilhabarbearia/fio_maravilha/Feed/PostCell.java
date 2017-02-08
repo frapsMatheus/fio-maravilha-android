@@ -37,6 +37,8 @@ public class PostCell extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
+
+
     public void setPost(Post post) {
         _text.setText(post.text);
         _title.setText(post.title);

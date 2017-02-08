@@ -48,6 +48,7 @@ public class AddServicesFragment extends Fragment implements Observer {
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
         Services.getInstace().addObserver(this);
+        ((MainActivity)getActivity()).setCurrentFragmentAgendamento(this,0);
         return view;
     }
 
@@ -56,7 +57,7 @@ public class AddServicesFragment extends Fragment implements Observer {
         Barbers.getInstace().downloadBarbers(_adapter._selectedServices, msg -> {
             AgendamentoInstance.getInstace()._chosenServices =
                     new ArrayList<>(_adapter._selectedServices);
-            ((MainActivity)getActivity()).changeFragment(new SelectBarber(), "Select_Barber");
+            ((MainActivity)getActivity()).changeFragment(new SelectBarber());
             return true;
         });
     }

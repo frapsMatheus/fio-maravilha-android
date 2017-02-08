@@ -1,6 +1,7 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Feed;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +45,14 @@ public class FeedFragment extends Fragment implements Observer {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _unbinder.unbind();
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         _adapter.setPosts(Posts.getInstace()._posts);
     }
+
 }
