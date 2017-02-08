@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
+
 /**
  * Created by Fraps on 15/12/2016.
  */
@@ -22,6 +24,7 @@ public class Barber extends Object {
     public String bio;
     public ParseFile picture;
     public Date bornDate;
+    public ArrayList<Horario> horarios;
     public ArrayList<String> services;
 
     public Barber(ParseObject object) {
@@ -37,6 +40,15 @@ public class Barber extends Object {
                 services.add(jsonObject.toString());
             }
             catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONArray arrayHorarios = object.getJSONArray("hours");
+        horarios = new ArrayList<>();
+        for (int j = 0, count = arrayHorarios.length(); j< count; j++) {
+            try {
+                horarios.add(new Horario(arrayHorarios.getString(j)));
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

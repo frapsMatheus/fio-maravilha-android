@@ -12,6 +12,7 @@ import com.roughike.bottombar.BottomBar;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios.HorariosFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

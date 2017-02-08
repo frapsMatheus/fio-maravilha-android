@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,5 +48,9 @@ public class CalendarioFragment extends Fragment {
     @OnClick(R.id.tx_proximo)
     public void proximo() {
         AgendamentoInstance.getInstace()._chosendDate = _calendar._selectedDate;
+        Horarios.getInstace().getHorarios(AgendamentoInstance.getInstace()._chosenBarber,
+                AgendamentoInstance.getInstace()._chosendDate, msg -> {
+                    return false;
+                });
     }
 }
