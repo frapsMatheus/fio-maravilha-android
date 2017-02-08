@@ -37,8 +37,6 @@ public class PostCell extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-
-
     public void setPost(Post post) {
         _text.setText(post.text);
         _title.setText(post.title);
@@ -56,13 +54,8 @@ public class PostCell extends RecyclerView.ViewHolder {
                         int imageHeight = bmp.getHeight();
                         int width;
                         int height;
-                        if (imageWidth> imageHeight) {
-                            height = _image.getMeasuredHeight();
-                            width = (height * imageWidth)/imageHeight;
-                        } else {
-                            width = _image.getMeasuredWidth();
-                            height = (width * imageHeight)/imageWidth;
-                        }
+                        width = _image.getMeasuredWidth();
+                        height = (width * imageHeight)/imageWidth;
                         _image.setImageBitmap(Bitmap.createScaledBitmap(bmp, width, height, false));
                     }
                 }

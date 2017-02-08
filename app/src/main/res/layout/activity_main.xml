@@ -12,12 +12,13 @@
         <!--android:layout_above="@+id/bottomBar" />-->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/background"
-        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_background"
         android:alpha="1"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:layout_above="@+id/bottomBar"
+        app:srcCompat="@drawable/background" />
 
     <FrameLayout
         android:alpha="0.82"

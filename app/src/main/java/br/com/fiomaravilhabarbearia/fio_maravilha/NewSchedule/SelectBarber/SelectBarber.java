@@ -13,9 +13,11 @@ import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Barbers;
+import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar.CalendarioFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -57,6 +59,16 @@ public class SelectBarber extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @OnClick(R.id.tx_proximo)
+    public void proximo() {
+        try {
+            AgendamentoInstance.getInstace()._chosenBarber = _adapter.getSelectedBarber();
+            ((MainActivity)getActivity()).changeFragment(new CalendarioFragment());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

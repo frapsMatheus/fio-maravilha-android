@@ -1,10 +1,12 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import com.roughike.bottombar.BottomBar;
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     Fragment _agendamentoFragment;
     int _currentStateAgendamento = 0;
+
+    @BindView(R.id.activity_background)
+    ImageView _backgroundImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.commit();
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void changeFragment(Fragment fragment) {

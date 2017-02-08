@@ -29,8 +29,6 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
         _fragment = fragment;
     }
 
-
-
     @Override
     public BarberCell onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -51,10 +49,19 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
         }, (buttonView, isChecked) -> {
             if (currentSelected != -1 && currentSelected != position && !holder.onBind) {
                 notifyItemChanged(currentSelected);
+            } else if (currentSelected == position) {
+                currentSelected = -1;
             }
             currentSelected = position;
         });
         holder.onBind = false;
+    }
+
+    public Barber getSelectedBarber() throws Exception {
+        if (currentSelected == -1) {
+            throw new Exception();
+        }
+        return _barbers.get(currentSelected);
     }
 
     @Override

@@ -13,7 +13,7 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:text="PASSO 2 DE 4"
+            android:text="PASSO 3 DE 4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
@@ -24,7 +24,7 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:text="ESCOLHA O PROFISSIONAL"
+            android:text="ESCOLHA A DATA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
@@ -36,16 +36,24 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp" />
 
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:id="@+id/services_recyclerView"
-            android:scrollbars="vertical"
-            />
+            android:layout_weight="1">
+
+        </FrameLayout>
+
+        <br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar.CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_calendar" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </FrameLayout>
 
         <Button
             android:text="PRÓXIMO PASSO >"
@@ -54,10 +62,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:background="@color/colorBlack"
             android:textColor="@color/colorOrange"
+            android:layout_weight="0"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="0"
             android:layout_height="48dp" />
     </LinearLayout>
 </LinearLayout>

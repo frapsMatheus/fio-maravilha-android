@@ -1,6 +1,7 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Managers;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
@@ -15,6 +16,7 @@ public class AgendamentoInstance {
 
     public ArrayList<Service> _chosenServices = new ArrayList<>();
     public Barber _chosenBarber;
+    public Date _chosendDate;
 
 
     public static AgendamentoInstance getInstace() {

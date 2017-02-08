@@ -11,4 +11,10 @@
     <color name="colorLightOrangeTransparent">#D1FCF1CC</color>
     <color name="colorDarkGray">#616574</color>
     <color name="lineGray">#636673</color>
+
+    <!--Calendar-->
+    <color name="calendar_banner">#DDCFAF</color>
+    <color name="greyed_out">#95989A</color>
+    <color name="today">@color/colorOrange</color>
+
 </resources>
