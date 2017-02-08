@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.roughike.bottombar.BottomBar;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,9 +23,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         _bottomBar.setOnTabSelectListener(tabId -> {
-            AddServicesFragment f1 = new AddServicesFragment();
+            Fragment fragment;
+            switch (tabId) {
+                case R.id.tab_news:
+                    fragment = new FeedFragment();
+                    break;
+                case R.id.tab_schedule:
+                    fragment = new AddServicesFragment();
+                    break;
+                default:
+                    fragment = new AddServicesFragment();
+            }
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_container, f1); // f1_container is your FrameLayout container
+            ft.replace(R.id.main_container, fragment); // f1_container is your FrameLayout container
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.addToBackStack(null);
             ft.commit();

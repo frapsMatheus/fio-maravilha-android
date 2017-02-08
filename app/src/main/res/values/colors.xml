@@ -8,7 +8,7 @@
     <color name="colorOrange">#DCA859</color>
     <color name="colorOrangeTransparent">#99DCA859</color>
     <color name="colorLightOrange">#FCF1CC</color>
-    <color name="colorLightOrangeTransparent">#BBFCF1CC</color>
+    <color name="colorLightOrangeTransparent">#D1FCF1CC</color>
     <color name="colorDarkGray">#616574</color>
     <color name="lineGray">#636673</color>
 </resources>

@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_gradient">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- This could be your fragment container, or something -->
 
@@ -17,8 +16,16 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/background"
         android:id="@+id/imageView2"
-        android:alpha="0.15"
-        android:scaleType="matrix" />
+        android:alpha="1"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:alpha="0.82"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient">
+
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

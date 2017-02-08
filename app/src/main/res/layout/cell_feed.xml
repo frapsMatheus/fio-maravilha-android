@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp">
+
+        <TextView
+            android:text="19 Set 2016"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_date"
+            android:textSize="16sp"
+            android:textColor="@color/colorOrange"
+            android:background="@drawable/round_orange_empty"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/share"
+            android:id="@+id/imageView3"
+            android:layout_weight="0"
+            android:scaleType="fitEnd" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/background"
+        android:id="@+id/feed_image"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="13dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/feed_title"
+        android:textSize="23sp"
+        android:textStyle="normal|bold"
+        android:textColor="@color/colorOrange"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/feed_text"
+        android:textSize="17sp"
+        android:textColor="@color/colorLightOrange"
+        android:layout_marginBottom="24dp" />
+
+</LinearLayout>
