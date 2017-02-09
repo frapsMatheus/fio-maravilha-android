@@ -1,14 +1,13 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -49,6 +48,8 @@ public class CalendarView extends LinearLayout
     private EventHandler eventHandler = null;
 
     // internal components
+    private LinearLayout calendarView;
+    private ArrayList<TextView> daysViews = new ArrayList<>();
     private LinearLayout header;
     private ImageView btnPrev;
     private ImageView btnNext;
@@ -88,8 +89,36 @@ public class CalendarView extends LinearLayout
 
         assignUiElements();
         assignClickHandlers();
+        setDimensions(context);
 
         updateCalendar();
+    }
+
+    private void setDimensions(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+
+        if (height < 800) {
+            ViewGroup.LayoutParams params = calendarView.getLayoutParams();
+            params.height = 250;
+            calendarView.setLayoutParams(params);
+            txtYear.setTextSize(13);
+            txtMonth.setTextSize(13);
+            for (TextView textView : daysViews) {
+                textView.setTextSize(11);
+            }
+        } else if (height < 900) {
+            ViewGroup.LayoutParams params = calendarView.getLayoutParams();
+            params.height = 400;
+            txtYear.setTextSize(18);
+            txtMonth.setTextSize(18);
+            for (TextView textView : daysViews) {
+                textView.setTextSize(18);
+            }
+        }
+
     }
 
     private void assignUiElements()
@@ -101,6 +130,14 @@ public class CalendarView extends LinearLayout
         txtMonth = (TextView)findViewById(R.id.calendar_month_display);
         txtYear = (TextView)findViewById(R.id.calendar_year_display);
         grid = (GridView)findViewById(R.id.calendar_grid);
+        calendarView = (LinearLayout)findViewById(R.id.calendar_view);
+        daysViews.add((TextView)findViewById(R.id.calendar_day1));
+        daysViews.add((TextView)findViewById(R.id.calendar_day2));
+        daysViews.add((TextView)findViewById(R.id.calendar_day3));
+        daysViews.add((TextView)findViewById(R.id.calendar_day4));
+        daysViews.add((TextView)findViewById(R.id.calendar_day5));
+        daysViews.add((TextView)findViewById(R.id.calendar_day6));
+        daysViews.add((TextView)findViewById(R.id.calendar_day7));
     }
 
     private void assignClickHandlers()
@@ -185,11 +222,14 @@ public class CalendarView extends LinearLayout
         // for view inflation
         private LayoutInflater inflater;
 
+        private final Context context;
+
         public CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Date> eventDays)
         {
             super(context, R.layout.control_calendar_day, days);
             this.eventDays = eventDays;
             inflater = LayoutInflater.from(context);
+            this.context = context;
         }
 
         @Override
@@ -251,6 +291,14 @@ public class CalendarView extends LinearLayout
 
             // set text
             ((TextView)view).setText(String.valueOf(date.getDate()));
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            int width = displayMetrics.widthPixels;
+            int height = displayMetrics.heightPixels;
+            if (height < 800) {
+                ((TextView)view).setTextSize(13);
+            } else if (height < 900) {
+                ((TextView)view).setTextSize(18);
+            }
 
             return view;
         }

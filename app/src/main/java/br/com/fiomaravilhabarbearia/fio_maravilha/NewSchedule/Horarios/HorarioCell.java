@@ -3,6 +3,7 @@ package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios;
 import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -12,7 +13,6 @@ import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.internal.Utils;
 
 /**
  * Created by fraps on 08/02/17.
@@ -42,6 +42,15 @@ public class HorarioCell extends RecyclerView.ViewHolder {
         _horario.setTextColor(FioUtils.getColor(context,R.color.colorLightOrange));
         _innerLayout.setBackgroundResource(R.drawable.horario_background);
         _outerLayout.setBackgroundResource(R.drawable.horario_background_no_outline);
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        if (height < 800) {
+            _horario.setTextSize(12);
+            _horario.setPadding(20,4,20,4);
+        } else if (height < 900) {
+            _horario.setTextSize(16);
+            _horario.setPadding(20,4,20,4);
+        }
     }
 
     public void setChosenHorario(Context context) {

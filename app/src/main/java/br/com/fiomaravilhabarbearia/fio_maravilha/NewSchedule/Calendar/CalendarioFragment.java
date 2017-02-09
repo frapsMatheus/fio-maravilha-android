@@ -3,9 +3,11 @@ package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
@@ -28,6 +30,12 @@ public class CalendarioFragment extends Fragment {
     @BindView(R.id.tx_calendar)
     CalendarView _calendar;
 
+    @BindView(R.id.tx_pick_date_label)
+    TextView _dateLabel;
+
+    @BindView(R.id.tx_passo_label)
+    TextView _passoLabel;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +45,14 @@ public class CalendarioFragment extends Fragment {
         _calendar.setEventHandler(date -> {
             _calendar.selectDate(date);
         });
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        if (height < 800) {
+            _dateLabel.setVisibility(View.GONE);
+            _passoLabel.setVisibility(View.GONE);
+        } else if (height < 900) {
+            _dateLabel.setVisibility(View.GONE);
+        }
         return view;
     }
 

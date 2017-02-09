@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,9 @@ public class HorariosFragment extends Fragment {
     RecyclerView _recyclerView;
     private HorariosAdapter _adapter;
 
+    @BindView(R.id.tx_passo_label)
+    TextView _passoLabel;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +45,11 @@ public class HorariosFragment extends Fragment {
                 Horarios.getInstace()._horarios);
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        if (height < 800) {
+            _passoLabel.setVisibility(View.GONE);
+        }
         return view;
     }
 
