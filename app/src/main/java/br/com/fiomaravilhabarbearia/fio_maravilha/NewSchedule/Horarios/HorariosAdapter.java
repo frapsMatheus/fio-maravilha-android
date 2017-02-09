@@ -1,5 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 
 /**
@@ -18,9 +20,12 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorarioCell> {
 
 
     private ArrayList<Horario> _horarios;
+    private int chosenHorario = -1;
+    private final Context _context;
 
-    public HorariosAdapter(ArrayList<Horario> horarios) {
+    public HorariosAdapter(Context context, ArrayList<Horario> horarios) {
         _horarios = horarios;
+        _context = context;
     }
 
     @Override
@@ -32,11 +37,26 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorarioCell> {
 
     @Override
     public void onBindViewHolder(HorarioCell holder, int position) {
-//        holder.setCell(_horarios.get(position));
+        holder.onBind = true;
+        holder.setCell(_context,_horarios.get(position));
+        if (position == chosenHorario) {
+            holder.setChosenHorario(_context);
+        }
+        holder.itemView.setOnClickListener(v -> {
+            AgendamentoInstance.getInstace()._chosenHorario = _horarios.get(position);
+            holder.setChosenHorario(_context);
+            if (chosenHorario != -1 && chosenHorario != position && !holder.onBind) {
+                notifyItemChanged(chosenHorario);
+            } else if (chosenHorario == position) {
+                chosenHorario = -1;
+            }
+            chosenHorario = position;
+        });
+        holder.onBind = false;
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return _horarios.size();
     }
 }

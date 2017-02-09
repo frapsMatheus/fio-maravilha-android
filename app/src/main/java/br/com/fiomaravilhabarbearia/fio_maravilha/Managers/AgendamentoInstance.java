@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
 
 /**
@@ -17,6 +18,7 @@ public class AgendamentoInstance {
     public ArrayList<Service> _chosenServices = new ArrayList<>();
     public Barber _chosenBarber;
     public Date _chosendDate;
+    public Horario _chosenHorario;
 
 
     public static AgendamentoInstance getInstace() {
@@ -29,6 +31,14 @@ public class AgendamentoInstance {
     public void clean(){
         _chosenServices.clear();
         _chosenBarber = null;
+    }
+
+    public int calculateIntervals() {
+        int result = 0;
+        for (Service service : _chosenServices) {
+            result += service.duration / 30;
+        }
+        return result;
     }
 
 }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,9 +36,11 @@ public class HorariosFragment extends Fragment {
         ButterKnife.bind(this,view);
         _recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4,
                 LinearLayoutManager.HORIZONTAL,false));
-        _adapter = new HorariosAdapter(new ArrayList<>());
+        _adapter = new HorariosAdapter(getActivity().getApplicationContext(),
+                Horarios.getInstace()._horarios);
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
         return view;
     }
+
 }

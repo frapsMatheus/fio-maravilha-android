@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
+import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios.HorariosFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +51,8 @@ public class CalendarioFragment extends Fragment {
         AgendamentoInstance.getInstace()._chosendDate = _calendar._selectedDate;
         Horarios.getInstace().getHorarios(AgendamentoInstance.getInstace()._chosenBarber,
                 AgendamentoInstance.getInstace()._chosendDate, msg -> {
-                    return false;
+                    ((MainActivity)getActivity()).changeFragment(new HorariosFragment());
+                    return true;
                 });
     }
 }

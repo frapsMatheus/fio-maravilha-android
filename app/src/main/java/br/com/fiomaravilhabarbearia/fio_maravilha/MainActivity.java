@@ -34,16 +34,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        _feedsFragment = new FeedFragment();
-        _agendamentoFragment = new AddServicesFragment();
         _bottomBar.setOnTabSelectListener(tabId -> {
             Fragment fragment;
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             switch (tabId) {
                 case R.id.tab_news:
-                    fragment = _feedsFragment; // f1_container is your FrameLayout container
+                    if (_feedsFragment == null) {
+                        _feedsFragment = new FeedFragment();
+                    }
+                    fragment = _feedsFragment;
+                    // f1_container is your FrameLayout container
                     break;
                 case R.id.tab_schedule:
+                    if (_agendamentoFragment == null) {
+                        _agendamentoFragment = new AddServicesFragment();
+                    }
                     getFragmentManager().popBackStack(_agendamentoFragment.getClass().getName(),0);
                     fragment = _agendamentoFragment;
                     if (_currentStateAgendamento == 0) {
