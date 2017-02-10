@@ -3,11 +3,11 @@ package br.com.fiomaravilhabarbearia.fio_maravilha;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.roughike.bottombar.BottomBar;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.Agenda.AgendaFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
 import butterknife.BindView;
@@ -21,6 +21,8 @@ public class MainActivity extends BaseActivity {
     FeedFragment _feedsFragment;
 
     Fragment _agendamentoFragment;
+
+    Fragment _agendaFragment;
 
     Fragment _agendamentoRootFragment;
 
@@ -55,6 +57,12 @@ public class MainActivity extends BaseActivity {
                     if (_currentStateAgendamento == 0) {
                         ft.addToBackStack(_agendamentoRootFragment.getClass().getName());
                     }
+                    break;
+                case R.id.tab_my_schedules:
+                    if (_agendaFragment == null) {
+                        _agendaFragment = new AgendaFragment();
+                    }
+                    fragment = _agendaFragment;
                     break;
                 default:
                     fragment = _agendamentoFragment;

@@ -29,30 +29,32 @@ public class Barber extends Object {
 
     public Barber(ParseObject object) {
         this.id = object.getObjectId();
-        this.name = object.getString("name");
-        this.bio = object.getString("bio");
-        JSONArray array = object.getJSONArray("services");
-        services = new ArrayList<>();
-        for(int i = 0, count = array.length(); i< count; i++)
-        {
-            try {
-                String jsonObject = array.getString(i);
-                services.add(jsonObject.toString());
+        if (object.has("name")) {
+            this.name = object.getString("name");
+            this.bio = object.getString("bio");
+            JSONArray array = object.getJSONArray("services");
+            services = new ArrayList<>();
+            for(int i = 0, count = array.length(); i< count; i++)
+            {
+                try {
+                    String jsonObject = array.getString(i);
+                    services.add(jsonObject.toString());
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            catch (JSONException e) {
-                e.printStackTrace();
+            JSONArray arrayHorarios = object.getJSONArray("hours");
+            horarios = new ArrayList<>();
+            for (int j = 0, count = arrayHorarios.length(); j< count; j++) {
+                try {
+                    horarios.add(new Horario(arrayHorarios.getString(j)));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+            this.picture = object.getParseFile("picture");
+            this.bornDate = object.getDate("born_date");
         }
-        JSONArray arrayHorarios = object.getJSONArray("hours");
-        horarios = new ArrayList<>();
-        for (int j = 0, count = arrayHorarios.length(); j< count; j++) {
-            try {
-                horarios.add(new Horario(arrayHorarios.getString(j)));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        this.picture = object.getParseFile("picture");
-        this.bornDate = object.getDate("born_date");
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/agenda_rect_background"
+    android:layout_gravity="clip_vertical"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/colorBlack"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            android:text="Sexta, 10 De Fevereiro De 2017"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/agenda_data"
+            android:layout_weight="1"
+            android:textColor="@color/colorLightOrange"
+            android:textSize="17sp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="4dp" />
+
+        <TextView
+            android:text="10:30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/agenda_hora"
+            android:layout_weight="0"
+            android:background="@drawable/agenda_round_background"
+            android:textColor="@color/colorOrange"
+            android:textSize="19sp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:gravity="center_vertical"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+</LinearLayout>
