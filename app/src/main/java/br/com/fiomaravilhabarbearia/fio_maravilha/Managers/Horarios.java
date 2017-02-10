@@ -71,7 +71,13 @@ public class Horarios extends Observable {
 
     private void generateEmptyHorarios(Barber barber, Date date, ArrayList<Schedule> schedules) {
         ArrayList<Horario> horarios = cleanByDate(date,barber);
-        ArrayList<Horario> emptyHorarios = cleanBusyHours(horarios,schedules);
+        ArrayList<Horario> currentDateHorarios = cleanCurrentDate(horarios,date);
+        ArrayList<Horario> emptyHorarios;
+        if (schedules != null) {
+            emptyHorarios = cleanBusyHours(currentDateHorarios,schedules);
+        } else {
+            emptyHorarios = currentDateHorarios;
+        }
         _horarios =  cleanPossibleHours(emptyHorarios,
                 AgendamentoInstance.getInstace().calculateIntervals());
     }
@@ -110,6 +116,30 @@ public class Horarios extends Observable {
         return result;
     }
 
+    private ArrayList<Horario> cleanCurrentDate(ArrayList<Horario> horarios, Date selectedDate) {
+        Calendar selectedCal = Calendar.getInstance();
+        Calendar currentCal = Calendar.getInstance();
+        selectedCal.setTime(selectedDate);
+        if (selectedCal.get(Calendar.YEAR) == currentCal.get(Calendar.YEAR) &&
+                selectedCal.get(Calendar.DAY_OF_YEAR) == currentCal.get(Calendar.DAY_OF_YEAR)) {
+            ArrayList<Horario> result = new ArrayList<>();
+            int currentHour = currentCal.get(Calendar.HOUR_OF_DAY);
+            int currentMinute = currentCal.get(Calendar.MINUTE);
+            for (Horario horario : horarios) {
+                String[] hourMinute = horario.horario.split("/")[1].split(":");
+                int selectedHour = Integer.valueOf(hourMinute[0]);
+                int selectedMinute = Integer.valueOf(hourMinute[1]);
+                if (selectedHour > currentHour || (selectedHour == currentHour && selectedMinute > currentMinute)) {
+                    result.add(horario);
+                }
+            }
+            return result;
+        } else {
+            return horarios;
+        }
+
+    }
+
     private ArrayList<Horario> cleanPossibleHours(ArrayList<Horario> horarios, int usedSlots) {
         Stack horariosValidos = new Stack();
         int lastHour = 0;
@@ -137,7 +167,9 @@ public class Horarios extends Observable {
 
     private void popStack(Stack stack, int usedSlots) {
         for (int i=1; i< usedSlots; i++) {
-            stack.pop();
+            if (stack.size() > 0) {
+                stack.pop();
+            }
         }
     }
 }

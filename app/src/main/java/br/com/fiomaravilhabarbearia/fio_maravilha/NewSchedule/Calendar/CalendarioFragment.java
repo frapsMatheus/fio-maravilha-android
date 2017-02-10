@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
@@ -47,11 +48,9 @@ public class CalendarioFragment extends Fragment {
         });
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int height = displayMetrics.heightPixels;
-        if (height < 800) {
+        if (height < 900) {
             _dateLabel.setVisibility(View.GONE);
             _passoLabel.setVisibility(View.GONE);
-        } else if (height < 900) {
-            _dateLabel.setVisibility(View.GONE);
         }
         return view;
     }
@@ -65,8 +64,10 @@ public class CalendarioFragment extends Fragment {
     @OnClick(R.id.tx_proximo)
     public void proximo() {
         AgendamentoInstance.getInstace()._chosendDate = _calendar._selectedDate;
+        ((BaseActivity)getActivity()).showLoadingDialog();
         Horarios.getInstace().getHorarios(AgendamentoInstance.getInstace()._chosenBarber,
                 AgendamentoInstance.getInstace()._chosendDate, msg -> {
+                    ((BaseActivity)getActivity()).dismissLoadingDialog();
                     ((MainActivity)getActivity()).changeFragment(new HorariosFragment());
                     return true;
                 });

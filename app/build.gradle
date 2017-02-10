@@ -42,5 +42,6 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parse-android:1.13.1'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.3.0'
     testCompile 'junit:junit:4.12'
 }

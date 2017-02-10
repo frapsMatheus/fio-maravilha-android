@@ -1,7 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Feed;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,7 +36,7 @@ public class FeedFragment extends Fragment implements Observer {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         _unbinder = ButterKnife.bind(this, view);
         _recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        _adapter = new PostAdapter(Posts.getInstace()._posts);
+        _adapter = new PostAdapter(getActivity(),Posts.getInstace()._posts);
         _recycler.setAdapter(_adapter);
         _recycler.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
         Posts.getInstace().addObserver(this);

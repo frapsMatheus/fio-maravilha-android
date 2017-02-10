@@ -1,5 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Feed;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,11 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private ArrayList<Post> _posts;
+    private Activity _context;
 
-    PostAdapter(ArrayList<Post> posts){
+    PostAdapter(Activity context, ArrayList<Post> posts){
         _posts = posts;
+        _context = context;
     }
 
     public void setPosts(ArrayList<Post> posts) {
@@ -53,7 +56,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position > 0) {
-            ((PostCell)holder).setPost(_posts.get(position-1));
+            ((PostCell)holder).setPost(_context,_posts.get(position-1));
         }
     }
 

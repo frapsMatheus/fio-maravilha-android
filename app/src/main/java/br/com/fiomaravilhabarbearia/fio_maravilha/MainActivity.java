@@ -2,8 +2,6 @@ package br.com.fiomaravilhabarbearia.fio_maravilha;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -12,11 +10,10 @@ import com.roughike.bottombar.BottomBar;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
-import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios.HorariosFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.bottomBar)
     BottomBar _bottomBar;
@@ -24,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     FeedFragment _feedsFragment;
 
     Fragment _agendamentoFragment;
+
+    Fragment _agendamentoRootFragment;
+
     int _currentStateAgendamento = 0;
 
     @BindView(R.id.activity_background)
@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.tab_schedule:
                     if (_agendamentoFragment == null) {
-                        _agendamentoFragment = new AddServicesFragment();
+                        _agendamentoRootFragment = new AddServicesFragment();
+                        _agendamentoFragment = _agendamentoRootFragment;
                     }
                     getFragmentManager().popBackStack(_agendamentoFragment.getClass().getName(),0);
                     fragment = _agendamentoFragment;
                     if (_currentStateAgendamento == 0) {
-                        ft.addToBackStack(null);
+                        ft.addToBackStack(_agendamentoRootFragment.getClass().getName());
                     }
                     break;
                 default:
@@ -82,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrentFragmentAgendamento(Fragment fragment, int tag) {
         _agendamentoFragment = fragment;
         _currentStateAgendamento = tag;
+    }
+
+    public void goBackToAddServices() {
+        String className = _agendamentoRootFragment.getClass().getName();
+        getFragmentManager().popBackStackImmediate(className,0);
     }
 
     @Override

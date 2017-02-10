@@ -8,7 +8,7 @@
     android:layout_marginRight="16dp"
     android:layout_marginLeft="16dp"
     android:id="@+id/calendar_view"
-    android:layout_height="280dp">
+    android:layout_height="310dp">
 
     <!-- date toolbar -->
     <LinearLayout
@@ -87,7 +87,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
-            android:text="S"
+            android:text="D"
             android:textSize="22sp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day1" />
@@ -97,7 +97,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
-            android:text="T"
+            android:text="S"
             android:textSize="22sp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day2" />
@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
-            android:text="Q"
+            android:text="T"
             android:textSize="22sp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day3" />
@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
-            android:text="S"
+            android:text="Q"
             android:textSize="22sp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day5" />
@@ -147,7 +147,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
-            android:text="D"
+            android:text="S"
             android:textSize="22sp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day7" />

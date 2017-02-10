@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
-import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 
 /**
@@ -43,7 +42,6 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorarioCell> {
             holder.setChosenHorario(_context);
         }
         holder.itemView.setOnClickListener(v -> {
-            AgendamentoInstance.getInstace()._chosenHorario = _horarios.get(position);
             holder.setChosenHorario(_context);
             if (chosenHorario != -1 && chosenHorario != position && !holder.onBind) {
                 notifyItemChanged(chosenHorario);
@@ -58,5 +56,12 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorarioCell> {
     @Override
     public int getItemCount() {
         return _horarios.size();
+    }
+
+    public Horario getChosenHorario() throws Exception{
+        if (chosenHorario == -1) {
+            throw new Exception();
+        }
+        return _horarios.get(chosenHorario);
     }
 }

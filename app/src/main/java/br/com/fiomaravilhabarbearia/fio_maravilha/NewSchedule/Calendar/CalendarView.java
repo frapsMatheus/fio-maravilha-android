@@ -31,7 +31,7 @@ public class CalendarView extends LinearLayout
     private static final String LOGTAG = "Calendar View";
 
     // how many days to show, defaults to six weeks, 42 days
-    private static final int DAYS_COUNT = 35;
+    private static final int DAYS_COUNT = 42;
 
     // default date format
     private static final String DATE_FORMAT = "MMM yyyy";
@@ -58,8 +58,11 @@ public class CalendarView extends LinearLayout
     private GridView grid;
 
     public void selectDate(Date selectedDate) {
-        _selectedDate = selectedDate;
-        updateCalendar(null);
+        int dayName  = selectedDate.getDay();
+        if (dayName != 0) {
+            _selectedDate = selectedDate;
+            updateCalendar(null);
+        }
     }
 
     public CalendarView(Context context)
@@ -102,7 +105,7 @@ public class CalendarView extends LinearLayout
 
         if (height < 800) {
             ViewGroup.LayoutParams params = calendarView.getLayoutParams();
-            params.height = 250;
+            params.height = 240;
             calendarView.setLayoutParams(params);
             txtYear.setTextSize(13);
             txtMonth.setTextSize(13);
@@ -111,7 +114,7 @@ public class CalendarView extends LinearLayout
             }
         } else if (height < 900) {
             ViewGroup.LayoutParams params = calendarView.getLayoutParams();
-            params.height = 400;
+            params.height = 440;
             txtYear.setTextSize(18);
             txtMonth.setTextSize(18);
             for (TextView textView : daysViews) {
@@ -167,8 +170,7 @@ public class CalendarView extends LinearLayout
             // handle long-press
             if (eventHandler == null)
                 return false;
-
-            eventHandler.onDayLongPress((Date)view.getItemAtPosition(position));
+            eventHandler.onDayLongPress((Date) view.getItemAtPosition(position));
             return true;
         });
     }
@@ -238,6 +240,7 @@ public class CalendarView extends LinearLayout
             // day in question
             Date date = getItem(position);
             int day = date.getDate();
+            int dayName = date.getDay();
             int month = date.getMonth();
             int year = date.getYear();
 
@@ -272,21 +275,20 @@ public class CalendarView extends LinearLayout
             ((TextView)view).setTypeface(null, Typeface.NORMAL);
             ((TextView)view).setTextColor(Color.BLACK);
 
-            if (month != currentSelected.getMonth() || year != currentSelected.getYear())
+            if (month != currentSelected.getMonth() || year != currentSelected.getYear() || dayName == 0)
             {
                 // if this day is outside current month, grey it out
                 ((TextView)view).setTextColor(getResources().getColor(R.color.greyed_out));
-            }
-            else if (day == today.getDate() && currentSelected.getMonth() == today.getMonth())
+            } else if (day == _selectedDate.getDate() && month == _selectedDate.getMonth()
+                && year == _selectedDate.getYear() ) {
+            ((TextView)view).setTypeface(null, Typeface.NORMAL);
+            view.setBackgroundResource(R.drawable.calendar_selected_background);
+            ((TextView)view).setTextColor(getResources().getColor(R.color.colorLightOrange));
+            }  else if (day == today.getDate() && currentSelected.getMonth() == today.getMonth())
             {
                 // if it is today, set it to orange/bold
                 ((TextView)view).setTypeface(null, Typeface.BOLD);
                 ((TextView)view).setTextColor(getResources().getColor(R.color.today));
-            } else if (day == _selectedDate.getDate() && month == _selectedDate.getMonth()
-                    && year == _selectedDate.getYear() ) {
-                ((TextView)view).setTypeface(null, Typeface.NORMAL);
-                view.setBackgroundResource(R.drawable.calendar_selected_background);
-                ((TextView)view).setTextColor(getResources().getColor(R.color.colorLightOrange));
             }
 
             // set text

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Barbers;
@@ -54,7 +55,9 @@ public class AddServicesFragment extends Fragment implements Observer {
 
     @OnClick(R.id.tx_proximo)
     public void proximo() {
+        ((BaseActivity)getActivity()).showLoadingDialog();
         Barbers.getInstace().downloadBarbers(_adapter._selectedServices, msg -> {
+            ((BaseActivity)getActivity()).dismissLoadingDialog();
             AgendamentoInstance.getInstace()._chosenServices =
                     new ArrayList<>(_adapter._selectedServices);
             ((MainActivity)getActivity()).changeFragment(new SelectBarber());
