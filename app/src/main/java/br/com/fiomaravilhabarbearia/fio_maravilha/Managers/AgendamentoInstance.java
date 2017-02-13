@@ -67,7 +67,7 @@ public class AgendamentoInstance {
     public void createAgendamento(ParseUser user, SaveCallback saveCallback) {
         ArrayList<String> horarios = generateTimeSlots();
         ParseObject newSchedule = new ParseObject("Schedules");
-//        newSchedule.put("user",user);
+        newSchedule.put("user",user);
         newSchedule.put("date",_chosendDate);
         newSchedule.put("hours",horarios);
         newSchedule.put("state","Criado");

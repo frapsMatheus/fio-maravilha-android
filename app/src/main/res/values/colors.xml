@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorBlack">#2c2d38</color>
+    <color name="colorBlackWithAlpha">#CE2c2d38</color>
     <color name="colorOrange">#DCA859</color>
     <color name="colorOrangeTransparent">#99DCA859</color>
     <color name="colorLightOrange">#FCF1CC</color>

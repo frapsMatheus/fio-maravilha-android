@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo"
+            app:srcCompat="@drawable/small_logo"
             android:id="@+id/imageView"
             android:layout_weight="0"
             android:scaleType="matrix" />

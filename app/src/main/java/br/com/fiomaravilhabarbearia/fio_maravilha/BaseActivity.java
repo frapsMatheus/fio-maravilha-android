@@ -52,7 +52,11 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showSuccessDialog(String text, SuccessHandler successHandler) {
         runOnUiThread(() -> {
-            _sucessDialog = new MaterialDialog.Builder(this).title("Sucesso")
+            _sucessDialog = new MaterialDialog.Builder(this)
+                    .backgroundColor(FioUtils.getColor(this, R.color.colorBlack))
+                    .titleColor(FioUtils.getColor(this, R.color.colorOrange))
+                    .contentColor(FioUtils.getColor(this, R.color.colorLightOrange))
+                    .widgetColor(FioUtils.getColor(this, R.color.colorLightOrange)).title("Sucesso")
                 .content(text).show();
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
@@ -64,7 +68,11 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showSuccessDialog(String text, boolean dismiss, SuccessHandler successHandler) {
         runOnUiThread(() -> {
-            _sucessDialog = new MaterialDialog.Builder(this).title("Sucesso").neutralText("OK")
+            _sucessDialog = new MaterialDialog.Builder(this)
+                    .backgroundColor(FioUtils.getColor(this, R.color.colorBlack))
+                    .titleColor(FioUtils.getColor(this, R.color.colorOrange))
+                    .contentColor(FioUtils.getColor(this, R.color.colorLightOrange))
+                    .widgetColor(FioUtils.getColor(this, R.color.colorLightOrange)).title("Sucesso").neutralText("OK")
                     .onNeutral((dialog, which) -> {
                         _sucessDialog.dismiss();
                         successHandler.finish();
@@ -78,6 +86,10 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showErrorDialog(String error) {
         runOnUiThread(() -> _errorDialog = new MaterialDialog.Builder(this)
+                .backgroundColor(FioUtils.getColor(this, R.color.colorBlack))
+                .titleColor(FioUtils.getColor(this, R.color.colorOrange))
+                .contentColor(FioUtils.getColor(this, R.color.colorLightOrange))
+                .widgetColor(FioUtils.getColor(this, R.color.colorLightOrange))
                 .title("Erro")
                 .content(error)
                 .cancelable(false)

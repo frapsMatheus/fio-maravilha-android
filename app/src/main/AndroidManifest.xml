@@ -12,8 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".FioApplication">
+        <activity android:name=".Inicial.Login"
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Inicial.CreateAcc"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5a137dcfb6adfe33e1ef07b8222a5e0d99154936" />
+        <activity android:name=".SplashScreen" android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

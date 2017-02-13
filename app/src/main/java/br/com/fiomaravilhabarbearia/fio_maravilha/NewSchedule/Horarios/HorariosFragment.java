@@ -73,6 +73,7 @@ public class HorariosFragment extends Fragment {
                     if (e == null) {
                         AgendamentoInstance.getInstace().clean();
                         ((MainActivity)getActivity()).goBackToAddServices();
+                        ((BaseActivity)getActivity()).showSuccessDialog("Agendamento realizado com sucesso", () -> {});
                     }
                 });
             } else {
