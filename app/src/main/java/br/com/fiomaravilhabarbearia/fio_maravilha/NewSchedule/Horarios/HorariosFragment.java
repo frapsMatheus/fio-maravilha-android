@@ -64,9 +64,9 @@ public class HorariosFragment extends Fragment {
     @OnClick(R.id.tx_proximo)
     public void finalizarAgendamento() {
         try {
-            ((BaseActivity)getActivity()).showLoadingDialog();
             Horario horario = _adapter.getChosenHorario();
             if (AgendamentoInstance.getInstace().isHorarioValid(horario)) {
+                ((BaseActivity)getActivity()).showLoadingDialog();
                 AgendamentoInstance.getInstace()._chosenHorario = horario;
                 AgendamentoInstance.getInstace().createAgendamento(ParseUser.getCurrentUser(), e -> {
                     ((BaseActivity)getActivity()).dismissLoadingDialog();
@@ -75,9 +75,11 @@ public class HorariosFragment extends Fragment {
                         ((MainActivity)getActivity()).goBackToAddServices();
                     }
                 });
+            } else {
+                ((BaseActivity)getActivity()).showErrorDialog("O agendamento deve ocorrer com pelo menos um minuto de antecedência");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            ((BaseActivity)getActivity()).showErrorDialog("Escolha um horário para finalizar o agendamento");
         }
     }
 

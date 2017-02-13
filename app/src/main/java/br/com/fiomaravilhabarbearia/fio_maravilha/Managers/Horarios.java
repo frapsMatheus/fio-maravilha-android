@@ -129,7 +129,7 @@ public class Horarios extends Observable {
                 String[] hourMinute = horario.horario.split("/")[1].split(":");
                 int selectedHour = Integer.valueOf(hourMinute[0]);
                 int selectedMinute = Integer.valueOf(hourMinute[1]);
-                if (selectedHour > currentHour || (selectedHour == currentHour && selectedMinute > currentMinute)) {
+                if (selectedHour > currentHour || (selectedHour == currentHour && selectedMinute >= currentMinute)) {
                     result.add(horario);
                 }
             }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        app:srcCompat="@drawable/calendar_info"
+        android:id="@+id/imageView2"
+        android:background="@drawable/round_lightorange_empty"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"
+        android:padding="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:text="Marque seu horário em 4 passos. Escolha a opção desejada e clique em PRÓXIMO PASSO. Não esqueça de visualizar o  perfil de todos os profissionais, para ajudar na escolha. O pagamento deverá ser feito na loja, no dia marcado. "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textSize="21sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorLightOrange"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+</LinearLayout>

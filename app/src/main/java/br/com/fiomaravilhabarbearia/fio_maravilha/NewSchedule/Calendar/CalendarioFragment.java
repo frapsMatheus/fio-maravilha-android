@@ -63,6 +63,10 @@ public class CalendarioFragment extends Fragment {
 
     @OnClick(R.id.tx_proximo)
     public void proximo() {
+        if (_calendar.dateWasSelected == false) {
+            ((BaseActivity)getActivity()).showErrorDialog("Escolha um dia para continuar o agendamento");
+            return;
+        }
         AgendamentoInstance.getInstace()._chosendDate = _calendar._selectedDate;
         ((BaseActivity)getActivity()).showLoadingDialog();
         Horarios.getInstace().getHorarios(AgendamentoInstance.getInstace()._chosenBarber,

@@ -17,4 +17,7 @@
     <color name="greyed_out">#95989A</color>
     <color name="today">@color/colorOrange</color>
 
+    <!--Toolbar-->
+    <color name="toolbar_color">#FCF1CC</color>
+
 </resources>

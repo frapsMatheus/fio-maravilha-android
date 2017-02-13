@@ -43,6 +43,7 @@ public class CalendarView extends LinearLayout
     private Calendar currentDate = Calendar.getInstance();
 
     public Date _selectedDate = new Date(1);
+    public boolean dateWasSelected = false;
 
     //event handling
     private EventHandler eventHandler = null;
@@ -61,6 +62,7 @@ public class CalendarView extends LinearLayout
         int dayName  = selectedDate.getDay();
         if (dayName != 0) {
             _selectedDate = selectedDate;
+            dateWasSelected = true;
             updateCalendar(null);
         }
     }

@@ -4,10 +4,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -78,34 +82,7 @@ public class BaseActivity extends AppCompatActivity {
                 .content(error)
                 .cancelable(false)
                 .positiveText("OK")
-                .show() );
+                .show());
     }
-
-//    public void setUpPopUp(View view) {
-//        _popUpContainer.removeAllViews();
-//        _popUpContainer.addView(view);
-//        _popUpDialog.setOnDismissListener(dialogInterface -> {
-//
-//        });
-//        _popUpDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//    }
-//
-//    public void setUpPopUp(View view, DialogInterface.OnDismissListener dismissListener) {
-//        _popUpContainer.removeAllViews();
-//        _popUpContainer.addView(view);
-//        _popUpDialog.setOnDismissListener(dismissListener);
-//        _popUpDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//    }
-//
-//    public void showPopUp(String title) {
-//        _popUpTitle.setText(title);
-//        _popUpDialog.show();
-//    }
-//
-//    public void dimissPopUp() {
-//        _popUpDialog.dismiss();
-//    }
 
 }

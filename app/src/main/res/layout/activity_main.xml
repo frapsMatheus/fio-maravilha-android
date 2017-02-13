@@ -5,11 +5,11 @@
 
     <!-- This could be your fragment container, or something -->
 
-    <!--<FrameLayout-->
-        <!--android:id="@+id/contentContainer"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_above="@+id/bottomBar" />-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,22 +17,17 @@
         android:id="@+id/activity_background"
         android:alpha="1"
         android:scaleType="centerCrop"
-        android:layout_above="@+id/bottomBar"
-        app:srcCompat="@drawable/background" />
+        app:srcCompat="@drawable/background"
+        android:layout_below="@+id/toolbar" />
 
     <FrameLayout
         android:alpha="0.82"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient">
+        android:background="@drawable/background_gradient"
+        android:layout_alignTop="@+id/activity_background">
 
     </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_container"
-        android:layout_above="@+id/bottomBar" />
 
     <!--<include layout="@layout/fragment_pick_services"-->
         <!--android:layout_width="match_parent"-->
@@ -42,14 +37,24 @@
         <!--android:layout_alignParentStart="true"-->
         <!--android:layout_height="match_parent" />-->
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_container"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/activity_background"
+        android:layout_above="@+id/bottomBar" />
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_activeTabColor="@color/colorOrange"
         app:bb_inActiveTabColor="@color/colorBlack"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorLightOrange" />
+        android:background="@color/colorLightOrange"
+        android:layout_height="60dp" />
 
 </RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+                <!-- Customize your theme here. -->
+                <item name="android:windowLightStatusBar">true</item>
+                <item name="colorPrimary">@color/colorOrange</item>
+                <item name="colorPrimaryDark">@color/toolbar_color</item>
+                <item name="colorAccent">#3884AA</item>
+        </style>
+</resources>

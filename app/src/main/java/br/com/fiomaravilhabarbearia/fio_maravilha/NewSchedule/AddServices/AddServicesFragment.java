@@ -55,6 +55,10 @@ public class AddServicesFragment extends Fragment implements Observer {
 
     @OnClick(R.id.tx_proximo)
     public void proximo() {
+        if (_adapter._selectedServices.isEmpty()) {
+            ((BaseActivity)getActivity()).showErrorDialog("Escolha ao menos um serviço para continuar");
+            return;
+        }
         ((BaseActivity)getActivity()).showLoadingDialog();
         Barbers.getInstace().downloadBarbers(_adapter._selectedServices, msg -> {
             ((BaseActivity)getActivity()).dismissLoadingDialog();

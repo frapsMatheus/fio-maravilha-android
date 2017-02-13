@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
@@ -67,6 +68,7 @@ public class SelectBarber extends Fragment {
             AgendamentoInstance.getInstace()._chosenBarber = _adapter.getSelectedBarber();
             ((MainActivity)getActivity()).changeFragment(new CalendarioFragment());
         } catch (Exception e) {
+            ((BaseActivity)getActivity()).showErrorDialog("Escolha um barbeiro para continuar o agendamento");
             e.printStackTrace();
         }
     }
