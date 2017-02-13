@@ -20,6 +20,7 @@ import com.roughike.bottombar.BottomBar;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Agenda.AgendaFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Options.Options;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,6 +36,8 @@ public class MainActivity extends BaseActivity {
     Fragment _agendaFragment;
 
     Fragment _agendamentoRootFragment;
+
+    Fragment _optionsFragment;
 
     int _currentStateAgendamento = 0;
 
@@ -116,7 +119,10 @@ public class MainActivity extends BaseActivity {
                     _descriptionToolbar.setText("Acompanhe Seus Horários");
                     break;
                 default:
-                    fragment = _agendamentoFragment;
+                    if (_optionsFragment == null) {
+                        _optionsFragment = new Options();
+                    }
+                    fragment = _optionsFragment;
             }
             ft.replace(R.id.main_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
