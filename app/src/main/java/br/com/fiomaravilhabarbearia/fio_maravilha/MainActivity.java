@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -177,6 +178,8 @@ public class MainActivity extends BaseActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View inflatedLayout= inflater.inflate(layoutId, null);
         container.addView(inflatedLayout);
+        ImageButton _cancel = (ImageButton)dialog.findViewById(R.id.dialog_cancel);
+        _cancel.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
 }

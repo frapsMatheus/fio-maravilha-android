@@ -8,7 +8,9 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Observable;
@@ -38,7 +40,9 @@ public class Schedules extends Observable {
 
     public void downloadSchedules() {
         ParseQuery query = new ParseQuery("Schedules");
-//        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.include("barber");
+        query.whereContainedIn("state", Arrays.asList("Criado","Finalizado"));
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -48,7 +52,7 @@ public class Schedules extends Observable {
                     _history = new ArrayList<>();
                     for (ParseObject object : objects) {
                         Schedule newSchedule = new Schedule(object);
-                        if (isHistory(newSchedule.date)) {
+                        if (newSchedule.state.equals("Finalizado")) {
                             _history.add(newSchedule);
                         } else {
                             _proximos.add(newSchedule);
@@ -59,6 +63,12 @@ public class Schedules extends Observable {
                 }
             }
         });
+    }
+
+    public void removeSchedule(Schedule schedule) {
+        _proximos.remove(schedule);
+        setChanged();
+        notifyObservers();
     }
 
     private boolean isHistory(Date date) {

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:minHeight="?attr/actionBarSize"
     android:background="@color/toolbar_color"
-    android:layout_height="36dp">
+    android:layout_height="40dp"
+    android:layout_marginRight="1dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginLeft="1dp">
 
 
     <LinearLayout
@@ -17,34 +20,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="Detalhes"
             android:layout_gravity="center_horizontal"
             android:id="@+id/toolbar_title"
             android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
-        <TextView
-            android:text="Feed de Notícias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/toolbar_description"
-            android:textAlignment="center"
-            android:textSize="11sp"
-            android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <Button
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Ajuda"
+        android:layout_gravity="left"
+        android:text="Fechar"
         android:background="@null"
         android:textColor="@color/colorOrange"
         android:layout_width="80dp"
         android:gravity="center_vertical|center_horizontal|center"
-        android:id="@+id/toolbar_ajuda"
+        android:id="@+id/toolbar_cancel"
+        android:visibility="visible"
         android:textAppearance="@style/TitleStyle"
-        android:textSize="17sp"
-        android:visibility="gone" />
+        android:textSize="17sp" />
 
 </android.support.v7.widget.Toolbar>

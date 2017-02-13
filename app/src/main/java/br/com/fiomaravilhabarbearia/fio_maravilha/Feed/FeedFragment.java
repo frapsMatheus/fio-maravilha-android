@@ -63,8 +63,10 @@ public class FeedFragment extends Fragment implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        _refresh.setRefreshing(false);
-        _adapter.setPosts(Posts.getInstace()._posts);
+        if (_refresh != null) {
+            _refresh.setRefreshing(false);
+            _adapter.setPosts(Posts.getInstace()._posts);
+        }
     }
 
 }

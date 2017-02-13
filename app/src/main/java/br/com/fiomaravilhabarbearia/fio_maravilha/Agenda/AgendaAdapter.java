@@ -22,9 +22,13 @@ public class AgendaAdapter extends RecyclerView.Adapter {
     private ArrayList<Schedule> _proximos;
     private ArrayList<Schedule> _history;
 
-    AgendaAdapter(ArrayList<Schedule> proximos, ArrayList<Schedule> history) {
+
+    private final AgendaFragment _fragment;
+
+    AgendaAdapter(AgendaFragment fragment, ArrayList<Schedule> proximos, ArrayList<Schedule> history) {
         _proximos = proximos;
         _history = history;
+        _fragment = fragment;
     }
 
     public void setData(ArrayList<Schedule> proximos, ArrayList<Schedule> history) {
@@ -65,10 +69,19 @@ public class AgendaAdapter extends RecyclerView.Adapter {
                 ((AgendaHeader)holder).setTitle("HISTÓRICO");
             }
         } else {
+            Schedule schedule;
             if (position <= _proximos.size()) {
-                ((AgendaCell)holder).setAgenda(_proximos.get(position-1).date);
+                schedule = _proximos.get(position-1);
+                ((AgendaCell)holder).setAgenda(schedule.date);
+                holder.itemView.setOnClickListener(v -> {
+                    _fragment.showDetailsDialog(schedule, false);
+                });
             } else  {
-                ((AgendaCell)holder).setAgenda(_history.get(position-2-_proximos.size()).date);
+                schedule = _history.get(position-2-_proximos.size());
+                ((AgendaCell)holder).setAgenda(schedule.date);
+                holder.itemView.setOnClickListener(v -> {
+                    _fragment.showDetailsDialog(schedule, true);
+                });
             }
         }
     }
