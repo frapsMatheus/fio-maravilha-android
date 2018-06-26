@@ -1,6 +1,5 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Feed;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,10 +12,9 @@ import android.view.ViewGroup;
 import java.util.Observable;
 import java.util.Observer;
 
-import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Post;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Posts;
-import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Schedules;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +24,7 @@ import butterknife.Unbinder;
  * Created by fraps on 08/02/17.
  */
 
-public class FeedFragment extends Fragment implements Observer {
+public class FeedFragment extends BaseFragment implements Observer {
 
     @BindView(R.id.feed_recycler)
     RecyclerView _recycler;

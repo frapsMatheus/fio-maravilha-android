@@ -1,8 +1,5 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
-import android.app.Fragment;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
@@ -27,7 +25,7 @@ import butterknife.Unbinder;
  * Created by fraps on 07/02/17.
  */
 
-public class BarberInfo extends Fragment {
+public class BarberInfo extends BaseFragment {
 
     private Unbinder _unbinder;
 
@@ -71,28 +69,8 @@ public class BarberInfo extends Fragment {
 
     private void setImage(Barber barber) {
         if (barber.picture != null) {
-            barber.picture.getDataInBackground((data, e) -> {
-                if (e == null) {
-                    if (barber.picture != null) {
-                        Bitmap bmp = BitmapFactory
-                                .decodeByteArray(
-                                        data, 0,
-                                        data.length);
-                        int imageWidth = bmp.getWidth();
-                        int imageHeight = bmp.getHeight();
-                        int width;
-                        int height;
-                        if (imageWidth> imageHeight) {
-                            height = _image.getMeasuredHeight();
-                            width = (height * imageWidth)/imageHeight;
-                        } else {
-                            width = _image.getMeasuredWidth();
-                            height = (width * imageHeight)/imageWidth;
-                        }
-                        _image.setImageBitmap(Bitmap.createScaledBitmap(bmp, width, height, false));
-                    }
-                }
-            });
+            String url = barber.picture.getUrl();
+            Picasso.with(getActivity()).load(url).into(_image);
         }
     }
 

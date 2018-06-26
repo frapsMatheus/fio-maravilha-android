@@ -9,6 +9,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
@@ -33,7 +35,7 @@ public class Barbers extends Observable {
         return _barbersShared;
     }
 
-    public void downloadBarbers(ArrayList<Service> services, Handler.Callback callback) {
+    public void downloadBarbers(Collection<Service> services, Handler.Callback callback) {
         ParseQuery query = new ParseQuery("Barbers");
         ArrayList<String> stringServices = new ArrayList<>();
         for(Service service : services){
@@ -49,6 +51,7 @@ public class Barbers extends Observable {
                     for (ParseObject object : objects) {
                         _barbers.add(new Barber(object));
                     }
+                    Collections.shuffle(_barbers);
                     setChanged();
                     notifyObservers();
                     callback.handleMessage(new Message());

@@ -1,6 +1,5 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,17 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
-
-import java.util.ArrayList;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Schedules;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +29,7 @@ import butterknife.OnClick;
  * Created by fraps on 08/02/17.
  */
 
-public class HorariosFragment extends Fragment {
+public class HorariosFragment extends BaseFragment {
 
     @BindView(R.id.horarios_recyclerView)
     RecyclerView _recyclerView;
@@ -68,16 +65,19 @@ public class HorariosFragment extends Fragment {
             if (AgendamentoInstance.getInstace().isHorarioValid(horario)) {
                 ((BaseActivity)getActivity()).showLoadingDialog();
                 AgendamentoInstance.getInstace()._chosenHorario = horario;
-                AgendamentoInstance.getInstace().createAgendamento(ParseUser.getCurrentUser(), e -> {
+                AgendamentoInstance.getInstace().createAgendamento(getActivity(), ParseUser.getCurrentUser(), e -> {
                     ((BaseActivity)getActivity()).dismissLoadingDialog();
                     if (e == null) {
                         AgendamentoInstance.getInstace().clean();
                         ((MainActivity)getActivity()).goBackToAddServices();
-                        ((BaseActivity)getActivity()).showSuccessDialog("Agendamento realizado com sucesso", () -> {});
+
+                        ((BaseActivity)getActivity()).showSuccessDialog("Agendamento realizado com sucesso. Verifique nos horários se o agendamento já está disponível",true, () -> {
+                            Schedules.getInstace().downloadSchedules();
+                        });
                     }
                 });
             } else {
-                ((BaseActivity)getActivity()).showErrorDialog("O agendamento deve ocorrer com pelo menos um minuto de antecedência");
+                ((BaseActivity)getActivity()).showErrorDialog("O agendamento deve ocorrer com pelo menos uma hora de antecedência");
             }
         } catch (Exception e) {
             ((BaseActivity)getActivity()).showErrorDialog("Escolha um horário para finalizar o agendamento");

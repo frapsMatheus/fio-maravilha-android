@@ -1,11 +1,10 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
@@ -20,11 +19,13 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
 
     private ArrayList<Barber> _barbers;
     private final SelectBarber _fragment;
+    private Context _context;
 
     private int currentSelected = -1;
 
 
-    BarberAdapter(SelectBarber fragment, ArrayList<Barber> barbers) {
+    BarberAdapter(Context context, SelectBarber fragment, ArrayList<Barber> barbers) {
+        _context = context;
         _barbers = barbers;
         _fragment = fragment;
     }
@@ -44,9 +45,18 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
         } else {
             holder.deselectBarber();
         }
-        holder.setBarber(_barbers.get(position), v -> {
+        holder.setBarber(_context, _barbers.get(position), v -> {
             _fragment.showBarberInfo(_barbers.get(position));
         }, (buttonView, isChecked) -> {
+            if (currentSelected != -1 && currentSelected != position && !holder.onBind) {
+                notifyItemChanged(currentSelected);
+            } else if (currentSelected == position) {
+                currentSelected = -1;
+            }
+            currentSelected = position;
+        });
+        holder.itemView.setOnClickListener(v -> {
+            holder._checkbox.setChecked(!holder._checkbox.isChecked());
             if (currentSelected != -1 && currentSelected != position && !holder.onBind) {
                 notifyItemChanged(currentSelected);
             } else if (currentSelected == position) {

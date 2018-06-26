@@ -39,6 +39,7 @@ public class Services extends Observable {
     public void downloadServices() {
         ParseQuery query = new ParseQuery("Services");
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
+        query.orderByAscending("priority");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

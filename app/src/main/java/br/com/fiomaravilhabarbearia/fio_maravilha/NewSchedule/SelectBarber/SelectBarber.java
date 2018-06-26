@@ -1,6 +1,5 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Barbers;
@@ -25,7 +29,7 @@ import butterknife.Unbinder;
  * Created by fraps on 07/02/17.
  */
 
-public class SelectBarber extends Fragment {
+public class SelectBarber extends BaseFragment {
 
     private Unbinder _unbinder;
 
@@ -39,7 +43,7 @@ public class SelectBarber extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pick_barber, container, false);
         _unbinder = ButterKnife.bind(this, view);
         _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        _adapter = new BarberAdapter(this, Barbers.getInstace()._barbers);
+        _adapter = new BarberAdapter(getActivity(), this, Barbers.getInstace()._barbers);
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
         ((MainActivity)getActivity()).setCurrentFragmentAgendamento(this,1);
@@ -66,6 +70,13 @@ public class SelectBarber extends Fragment {
     public void proximo() {
         try {
             AgendamentoInstance.getInstace()._chosenBarber = _adapter.getSelectedBarber();
+            try {
+                JSONObject props = new JSONObject();
+                props.put("Barbeiro", AgendamentoInstance.getInstace()._chosenBarber.name);
+                FioUtils.getMixpanel(getActivity())
+                        .track("Escolheu Barbeiro", props);
+            } catch (JSONException e) {
+            }
             ((MainActivity)getActivity()).changeFragment(new CalendarioFragment());
         } catch (Exception e) {
             ((BaseActivity)getActivity()).showErrorDialog("Escolha um barbeiro para continuar o agendamento");

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_centerHorizontal="true"
+        android:text="Insira o código de 6 dígitos que enviamos a você."
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorOrange"
+        android:textSize="16sp" />
+
+    <br.com.fiomaravilhabarbearia.fio_maravilha.MyEditText
+        android:id="@+id/code_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_background"
+        android:ems="10"
+        android:inputType="number"
+        android:paddingBottom="2dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="2dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorOrange"
+        android:textSize="22sp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:text="ENTRAR"
+            android:id="@+id/code_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="2"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal|bold"
+            android:background="@drawable/horario_selected_background_no_outline"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/code_resend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="3"
+            android:background="@drawable/round_orange_empty"
+            android:fontFamily="sans-serif"
+            android:text="Reenviar"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

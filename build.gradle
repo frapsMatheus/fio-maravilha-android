@@ -3,15 +3,15 @@
 buildscript {
     repositories {
         jcenter()
-        mavenCentral()
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url "https://maven.google.com"
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.google.gms:google-services:+'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
-        classpath "gradle.plugin.me.tatarka:gradle-retrolambda:3.4.0"
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,6 +20,18 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        maven {
+            url "$rootDir/../node_modules/react-native/android"
+        }
+        maven{
+            url 'http://sdk.uxcam.com/android/'
+        }
+        maven {
+            url "https://maven.google.com"
+        }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 }
 

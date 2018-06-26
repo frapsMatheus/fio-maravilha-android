@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Fio Maravilha</string>
     <string name="perfil"><u>Ver Perfil</u></string>
+    <string name="facebook_app_id">1225798554201962</string>
+
+    <string name="titulo_dia_do_noivo"></string>
+    <string name="texto_dia_do_noivo"></string>
 </resources>

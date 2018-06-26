@@ -3,7 +3,6 @@ package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;

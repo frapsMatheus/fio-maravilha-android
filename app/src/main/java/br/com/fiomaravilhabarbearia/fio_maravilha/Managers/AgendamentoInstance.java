@@ -1,6 +1,7 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Managers;
 
-import com.parse.ParseException;
+import android.content.Context;
+
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -8,11 +9,13 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.Random;
+import java.util.TimeZone;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 
 /**
  * Created by fraps on 07/02/17.
@@ -52,6 +55,7 @@ public class AgendamentoInstance {
     public boolean isHorarioValid(Horario horario) {
         Calendar c = Calendar.getInstance();
         Calendar chosenCal = Calendar.getInstance();
+        chosenCal.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
         chosenCal.setTime(_chosendDate);
         String[] split = horario.horario.split("/")[1].split(":");
         chosenCal.set(Calendar.HOUR_OF_DAY,Integer.valueOf(split[0]));
@@ -64,7 +68,7 @@ public class AgendamentoInstance {
         }
     }
 
-    public void createAgendamento(ParseUser user, SaveCallback saveCallback) {
+    public void createAgendamento(Context context, ParseUser user, SaveCallback saveCallback) {
         ArrayList<String> horarios = generateTimeSlots();
         ParseObject newSchedule = new ParseObject("Schedules");
         newSchedule.put("user",user);
@@ -77,7 +81,18 @@ public class AgendamentoInstance {
         }
         newSchedule.put("services",services);
         newSchedule.put("barber",ParseObject.createWithoutData("Barbers",_chosenBarber.id));
-        newSchedule.saveInBackground(saveCallback);
+        newSchedule.saveInBackground(e -> {
+            if (e == null) {
+                Calendar calendar = Calendar.getInstance();
+                Calendar chosenCal = Calendar.getInstance();
+                chosenCal.setTime(_chosendDate);
+                long timeFromNow = chosenCal.getTimeInMillis() - calendar.getTimeInMillis() - 3600 * 1000;
+                Random r = new Random();
+                int i1 = r.nextInt(99999999);
+                FioUtils.scheduleNotification(context, timeFromNow, i1);
+            }
+            saveCallback.done(e);
+        });
     }
 
     public ArrayList<String> generateTimeSlots() {
@@ -95,7 +110,7 @@ public class AgendamentoInstance {
         } else {
             firstPart = "/";
         }
-        do {
+        while (!(duracao == 0)) {
             if (minutoAtual == 0) {
                 novosHorarios.add(dia + firstPart + horaAtual + ":0" + minutoAtual);
             } else {
@@ -113,7 +128,7 @@ public class AgendamentoInstance {
                 firstPart = "/";
             }
             duracao--;
-        } while (!(duracao == 0));
+        }
         if (minutoAtual == 0) {
             novosHorarios.add(dia + firstPart + horaAtual + ":0" + minutoAtual);
         } else {

@@ -2,8 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.fiomaravilhabarbearia.fio_maravilha">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <permission android:name="br.com.fiomaravilhabarbearia.fio_maravilha.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="br.com.fiomaravilhabarbearia.fio_maravilha.permission.C2D_MESSAGE" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -13,11 +21,19 @@
         android:theme="@style/AppTheme"
         android:name=".FioApplication">
         <activity android:name=".Inicial.Login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DiaDoNoivo"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Inicial.CreateAcc"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="5a137dcfb6adfe33e1ef07b8222a5e0d99154936" />
@@ -29,6 +45,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Phone.PhoneInputActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+
+        <receiver android:name=".CustomMixpanelGCMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="br.com.fiomaravilhabarbearia.fio_maravilha" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

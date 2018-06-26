@@ -10,7 +10,7 @@
     <tab
         id="@+id/tab_my_schedules"
         icon="@drawable/ic_horarios"
-        title="Meus Horários" />
+        title="Horários" />
     <tab
         id="@+id/tab_option"
         icon="@drawable/ic_opcoes"

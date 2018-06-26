@@ -1,15 +1,12 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Feed;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
@@ -49,26 +46,8 @@ public class PostCell extends RecyclerView.ViewHolder {
         SimpleDateFormat spf = new SimpleDateFormat("dd MMM yyyy");
         _date.setText(spf.format(post.date));
         if (post.picture != null) {
-
-            post.picture.getDataInBackground((data, e) -> {
-                if (e == null) {
-                    if (post.picture != null) {
-                        DisplayMetrics displaymetrics = new DisplayMetrics();
-                        context.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-                        int width = displaymetrics.widthPixels;
-                        Bitmap bmp = BitmapFactory
-                                .decodeByteArray(
-                                        data, 0,
-                                        data.length);
-                        int imageWidth = bmp.getWidth();
-                        int imageHeight = bmp.getHeight();
-                        _image.post(() -> {
-                            int height = (width * imageHeight) / imageWidth;
-                            _image.setImageBitmap(Bitmap.createScaledBitmap(bmp, width, height, false));
-                        });
-                    }
-                }
-            });
+            String url = post.picture.getUrl();
+            Picasso.with(context).load(url).into(_image);
         }
     }
 

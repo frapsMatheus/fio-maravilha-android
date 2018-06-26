@@ -123,18 +123,14 @@ public class MainActivity extends BaseActivity {
                         _optionsFragment = new Options();
                     }
                     fragment = _optionsFragment;
+                    _titleToolbar.setText("Opções");
+                    _descriptionToolbar.setText("Configurações e Contato");
             }
             ft.replace(R.id.main_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.commit();
         });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
     public void changeFragment(Fragment fragment) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

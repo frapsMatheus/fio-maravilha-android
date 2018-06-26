@@ -1,7 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Managers;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -10,7 +9,6 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Observable;
@@ -43,6 +41,7 @@ public class Schedules extends Observable {
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.include("barber");
         query.whereContainedIn("state", Arrays.asList("Criado","Finalizado"));
+        query.orderByAscending("date");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -76,6 +75,12 @@ public class Schedules extends Observable {
         Calendar chosenCal = Calendar.getInstance();
         chosenCal.setTime(date);
         return chosenCal.getTimeInMillis() < (c.getTimeInMillis() - 3600 * 1000);
+    }
+
+    public void clear() {
+        _proximos.clear();
+        _history.clear();
+        downloaded = false;
     }
 
     @Override

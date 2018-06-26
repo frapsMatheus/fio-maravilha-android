@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Post;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Schedule;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 

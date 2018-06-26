@@ -34,6 +34,7 @@ public class Posts extends Observable {
 
     public void downloadPosts() {
         ParseQuery query = new ParseQuery("Posts");
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

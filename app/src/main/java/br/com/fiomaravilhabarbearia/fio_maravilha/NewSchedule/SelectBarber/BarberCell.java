@@ -1,7 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
@@ -40,7 +41,7 @@ public class BarberCell extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void setBarber(Barber barber, View.OnClickListener click, CheckBox.OnCheckedChangeListener checked) {
+    public void setBarber(Context context, Barber barber, View.OnClickListener click, CheckBox.OnCheckedChangeListener checked) {
         _barberName.setText(barber.name);
         String udata="Ver Perfil";
         SpannableString content = new SpannableString(udata);
@@ -48,28 +49,8 @@ public class BarberCell extends RecyclerView.ViewHolder {
         _barberButton.setText(content);
         _barberButton.setOnClickListener(click);
         if (barber.picture != null) {
-            barber.picture.getDataInBackground((data, e) -> {
-                if (e == null) {
-                    if (barber.picture != null) {
-                        Bitmap bmp = BitmapFactory
-                                .decodeByteArray(
-                                        data, 0,
-                                        data.length);
-                        int imageWidth = bmp.getWidth();
-                        int imageHeight = bmp.getHeight();
-                        int width;
-                        int height;
-                        if (imageWidth> imageHeight) {
-                            height = _barberImage.getMeasuredHeight();
-                            width = (height * imageWidth)/imageHeight;
-                        } else {
-                            width = _barberImage.getMeasuredWidth();
-                            height = (width * imageHeight)/imageWidth;
-                        }
-                        _barberImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, width, height, false));
-                    }
-                }
-            });
+            String url = barber.picture.getUrl();
+            Picasso.with(context).load(url).into(_barberImage);
         }
         _checkbox.setOnCheckedChangeListener(checked);
     }

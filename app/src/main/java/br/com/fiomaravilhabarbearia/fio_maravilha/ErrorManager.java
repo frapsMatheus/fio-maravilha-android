@@ -1,6 +1,8 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
 
+import android.app.Activity;
+
 import com.crashlytics.android.Crashlytics;
 import com.parse.ParseException;
 
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 public class ErrorManager {
 
 
-    public static String getErrorMessage(ParseException exception) {
+    public static String getErrorMessage(Activity activity, ParseException exception) {
         Crashlytics.logException(exception);
         try {
             JSONObject jsonObject = new JSONObject(exception.getLocalizedMessage());
@@ -29,6 +31,9 @@ public class ErrorManager {
             }
         } catch (JSONException e) {
             switch (exception.getCode()) {
+                case ParseException.INVALID_SESSION_TOKEN:
+                    FioUtils.logout(activity);
+                    return "Falha na sessão. Porfavor entrar novamente.";
                 case ParseException.EMAIL_NOT_FOUND:
                     return "Essa conta ainda não foi cadastrada";
                 case ParseException.OBJECT_NOT_FOUND:

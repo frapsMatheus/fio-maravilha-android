@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "845359638452",
+    "firebase_url": "https://fio-maravilha.firebaseio.com",
+    "project_id": "fio-maravilha",
+    "storage_bucket": "fio-maravilha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845359638452:android:dfae08b83a02c7ca",
+        "android_client_info": {
+          "package_name": "br.com.fiomaravilhabarbearia.fio_maravilha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845359638452-molf7n70em55hc7jlvuhgkejk8bud8u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ81ipX-SoaB6twds5aik-3POJJBRlz6w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -25,16 +25,20 @@ public class Schedule extends Object {
 
     public Schedule(ParseObject object) {
         this.id = object.getObjectId();
-        user = object.getParseUser("user");
+        if (object.getParseUser("user") != null) {
+            user = object.getParseUser("user");
+        }
         date = object.getDate("date");
         state = object.getString("state");
-        JSONArray array = object.getJSONArray("services");
-        services = new ArrayList<>();
-        for(int i = 0, count = array.length(); i< count; i++) {
-            try {
-                services.add(array.getString(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if (object.getJSONArray("services") != null) {
+            JSONArray array = object.getJSONArray("services");
+            services = new ArrayList<>();
+            for (int i = 0, count = array.length(); i < count; i++) {
+                try {
+                    services.add(array.getString(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
         JSONArray arrayHorarios = object.getJSONArray("hours");

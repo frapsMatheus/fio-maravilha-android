@@ -1,6 +1,5 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
@@ -9,7 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
@@ -24,7 +28,7 @@ import butterknife.Unbinder;
  * Created by fraps on 08/02/17.
  */
 
-public class CalendarioFragment extends Fragment {
+public class CalendarioFragment extends BaseFragment {
 
     private Unbinder _unbinder;
 
@@ -68,6 +72,13 @@ public class CalendarioFragment extends Fragment {
             return;
         }
         AgendamentoInstance.getInstace()._chosendDate = _calendar._selectedDate;
+        try {
+            JSONObject props = new JSONObject();
+            props.put("Dia", AgendamentoInstance.getInstace()._chosendDate);
+            FioUtils.getMixpanel(getActivity())
+                    .track("Escolheu Dia", props);
+        } catch (JSONException e) {
+        }
         ((BaseActivity)getActivity()).showLoadingDialog();
         Horarios.getInstace().getHorarios(AgendamentoInstance.getInstace()._chosenBarber,
                 AgendamentoInstance.getInstace()._chosendDate, msg -> {

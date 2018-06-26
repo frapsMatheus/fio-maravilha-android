@@ -1,9 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Barbers;
@@ -31,7 +33,7 @@ import butterknife.Unbinder;
  * Created by Fraps on 15/12/2016.
  */
 
-public class AddServicesFragment extends Fragment implements Observer {
+public class AddServicesFragment extends BaseFragment implements Observer {
 
     private Unbinder _unbinder;
 
@@ -60,10 +62,17 @@ public class AddServicesFragment extends Fragment implements Observer {
             return;
         }
         ((BaseActivity)getActivity()).showLoadingDialog();
-        Barbers.getInstace().downloadBarbers(_adapter._selectedServices, msg -> {
+        Barbers.getInstace().downloadBarbers(_adapter._selectedServices.values(), msg -> {
             ((BaseActivity)getActivity()).dismissLoadingDialog();
             AgendamentoInstance.getInstace()._chosenServices =
-                    new ArrayList<>(_adapter._selectedServices);
+                    new ArrayList<>(_adapter._selectedServices.values());
+            try {
+                JSONObject props = new JSONObject();
+                props.put("Servicos", AgendamentoInstance.getInstace()._chosenServices);
+                FioUtils.getMixpanel(getActivity())
+                        .track("Escolheu Serviço", props);
+            } catch (JSONException e) {
+            }
             ((MainActivity)getActivity()).changeFragment(new SelectBarber());
             return true;
         });

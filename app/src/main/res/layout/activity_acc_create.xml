@@ -112,41 +112,4 @@
         android:textSize="18sp"
         android:layout_height="40dp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/create_next"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:id="@+id/divider"
-        android:layout_marginTop="12dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorOrange"
-            android:layout_weight="1">
-
-        </FrameLayout>
-
-        <TextView
-            android:text="ou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:textColor="@color/colorOrange"
-            android:textSize="20sp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorOrange"
-            android:layout_weight="1">
-
-        </FrameLayout>
-    </LinearLayout>
 </RelativeLayout>

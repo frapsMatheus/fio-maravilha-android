@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 
 /**
@@ -59,8 +60,19 @@ public class CalendarView extends LinearLayout
     private GridView grid;
 
     public void selectDate(Date selectedDate) {
-        int dayName  = selectedDate.getDay();
-        if (dayName != 0) {
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 3);
+        Calendar selectedDay = Calendar.getInstance();
+        selectedDay.setTime(selectedDate);
+        int month = selectedDay.get(Calendar.MONTH);
+        int year = selectedDay.get(Calendar.YEAR);
+        int dayName = selectedDay.get(Calendar.DAY_OF_WEEK);
+        //          Outside current Month
+        if (month != currentDate.get(Calendar.MONTH) || year != currentDate.get(Calendar.YEAR) || dayName == 1) {
+        }
+        // Before today
+        else if (selectedDay.getTimeInMillis() < today.getTimeInMillis()) {
+        } else {
             _selectedDate = selectedDate;
             dateWasSelected = true;
             updateCalendar(null);
@@ -148,14 +160,9 @@ public class CalendarView extends LinearLayout
     private void assignClickHandlers()
     {
         // add one month and refresh UI
-        btnNext.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                currentDate.add(Calendar.MONTH, 1);
-                updateCalendar();
-            }
+        btnNext.setOnClickListener(v -> {
+            currentDate.add(Calendar.MONTH, 1);
+            updateCalendar();
         });
 
         // subtract one month and refresh UI
@@ -240,17 +247,15 @@ public class CalendarView extends LinearLayout
         public View getView(int position, View view, ViewGroup parent)
         {
             // day in question
-            Date date = getItem(position);
-            int day = date.getDate();
-            int dayName = date.getDay();
-            int month = date.getMonth();
-            int year = date.getYear();
+            Calendar date = Calendar.getInstance();
+            date.setTime(getItem(position));
+            int day = date.get(Calendar.DAY_OF_MONTH);
+            int dayName = date.get(Calendar.DAY_OF_WEEK);
+            int month = date.get(Calendar.MONTH);
+            int year = date.get(Calendar.YEAR);
 
             // today
-            Date today = new Date();
-
-            //Current selected
-            Date currentSelected = currentDate.getTime();
+            Calendar today = Calendar.getInstance();
 
             // inflate item if it does not exist yet
             if (view == null)
@@ -258,43 +263,39 @@ public class CalendarView extends LinearLayout
 
             // if this day has an event, specify event image
             view.setBackgroundResource(0);
-            if (eventDays != null)
-            {
-                for (Date eventDate : eventDays)
-                {
-                    if (eventDate.getDate() == day &&
-                            eventDate.getMonth() == month &&
-                            eventDate.getYear() == year)
-                    {
-                        // mark this day for event
-//                        view.setBackgroundResource(R.drawable.reminder);
-                        break;
-                    }
-                }
-            }
 
             // clear styling
             ((TextView)view).setTypeface(null, Typeface.NORMAL);
             ((TextView)view).setTextColor(Color.BLACK);
 
-            if (month != currentSelected.getMonth() || year != currentSelected.getYear() || dayName == 0)
-            {
-                // if this day is outside current month, grey it out
-                ((TextView)view).setTextColor(getResources().getColor(R.color.greyed_out));
-            } else if (day == _selectedDate.getDate() && month == _selectedDate.getMonth()
-                && year == _selectedDate.getYear() ) {
-            ((TextView)view).setTypeface(null, Typeface.NORMAL);
-            view.setBackgroundResource(R.drawable.calendar_selected_background);
-            ((TextView)view).setTextColor(getResources().getColor(R.color.colorLightOrange));
-            }  else if (day == today.getDate() && currentSelected.getMonth() == today.getMonth())
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.setTime(_selectedDate);
+
+            // Selected day
+            if (day == selectedDate.get(Calendar.DAY_OF_MONTH) && month == selectedDate.get(Calendar.MONTH)
+                    && year == selectedDate.get(Calendar.YEAR) ) {
+                ((TextView)view).setTypeface(null, Typeface.NORMAL);
+                view.setBackgroundResource(R.drawable.calendar_selected_background);
+                ((TextView)view).setTextColor(FioUtils.getColor(parent.getContext(),R.color.colorLightOrange));
+            }
+            // Today
+            else  if (day == today.get(Calendar.DAY_OF_MONTH) && currentDate.get(Calendar.MONTH) == today.get(Calendar.MONTH))
             {
                 // if it is today, set it to orange/bold
                 ((TextView)view).setTypeface(null, Typeface.BOLD);
-                ((TextView)view).setTextColor(getResources().getColor(R.color.today));
+                ((TextView)view).setTextColor(FioUtils.getColor(parent.getContext(),R.color.today));
+            }
+//          Outside current Month
+            else if (month != currentDate.get(Calendar.MONTH) || year != currentDate.get(Calendar.YEAR) || dayName == 1) {
+                ((TextView) view).setTextColor(FioUtils.getColor(parent.getContext(), R.color.greyed_out));
+            }
+            // Before today
+            else if (date.getTimeInMillis() < today.getTimeInMillis()) {
+                ((TextView) view).setTextColor(FioUtils.getColor(parent.getContext(), R.color.greyed_out));
             }
 
             // set text
-            ((TextView)view).setText(String.valueOf(date.getDate()));
+            ((TextView)view).setText(String.valueOf(date.get(Calendar.DAY_OF_MONTH)));
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;

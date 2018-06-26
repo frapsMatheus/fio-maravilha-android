@@ -109,15 +109,26 @@
         </FrameLayout>
     </LinearLayout>
 
+
+
     <Button
-        android:text="CONECTAR COM FACEBOOK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/fb_login"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignLeft="@+id/divider"
+        android:layout_alignRight="@+id/divider"
         android:layout_below="@+id/divider"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:focusable="false" />
+        android:background="@drawable/fb_button_background"
+        android:drawableLeft="@drawable/fb_logo"
+        android:focusable="false"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:text="CONECTAR COM FACEBOOK"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:text="CRIAR NOVA CONTA"
@@ -147,17 +158,16 @@
     <Button
         android:text="ENTRAR"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/login_entrar"
-        android:textSize="30sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:textColor="@android:color/white"
         android:fontFamily="sans-serif"
         android:textStyle="normal|bold"
         android:layout_below="@+id/input_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:textAlignment="center"
-        android:background="@null" />
+        android:background="@drawable/horario_selected_background_no_outline"
+        android:textSize="18sp"
+        android:layout_height="40dp" />
 
 </RelativeLayout>

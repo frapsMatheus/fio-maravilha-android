@@ -12,60 +12,76 @@
         android:background="@drawable/round_orange"
         android:paddingTop="8dp">
 
-        <TextView
-            android:text="PASSO 3 DE 4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tx_passo_label"
-            android:gravity="center"
-            android:textStyle="normal|bold"
-            android:textColor="@color/colorOrange"
-            android:textSize="20sp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:text="ESCOLHA A DATA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tx_pick_date_label"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
-            android:gravity="center"
-            android:background="@drawable/round_black_empty"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp" />
-
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-        </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar.CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tx_calendar" />
+                <TextView
+                    android:id="@+id/tx_passo_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="PASSO 3 DE 4"
+                    android:textColor="@color/colorOrange"
+                    android:textSize="20sp"
+                    android:textStyle="normal|bold" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-        </FrameLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tx_pick_date_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_black_empty"
+                    android:gravity="center"
+                    android:text="ESCOLHA A DATA"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </FrameLayout>
+
+                <br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar.CalendarView
+                    android:id="@+id/tx_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </ScrollView>
 
         <Button
-            android:text="PRÓXIMO PASSO >"
-            android:layout_width="match_parent"
             android:id="@+id/tx_proximo"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="@color/colorBlack"
-            android:textColor="@color/colorOrange"
-            android:layout_weight="0"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_height="48dp" />
+            android:layout_weight="0"
+            android:background="@color/colorBlack"
+            android:text="PRÓXIMO PASSO >"
+            android:textColor="@color/colorOrange" />
     </LinearLayout>
 </LinearLayout>

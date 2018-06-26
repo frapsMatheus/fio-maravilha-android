@@ -1,7 +1,6 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Agenda;
 
 import android.app.Dialog;
-import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,14 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,8 +24,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
+import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Schedule;
-import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
 import br.com.fiomaravilhabarbearia.fio_maravilha.ErrorManager;
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Schedules;
@@ -43,7 +38,7 @@ import butterknife.Unbinder;
  * Created by fraps on 10/02/17.
  */
 
-public class AgendaFragment extends Fragment implements Observer {
+public class AgendaFragment extends BaseFragment implements Observer {
 
     private Unbinder _unbinder;
 
@@ -104,11 +99,6 @@ public class AgendaFragment extends Fragment implements Observer {
         TextView _dialogBarber = (TextView)dialog.findViewById(R.id.dialog_barbeiro);
         _dialogBarber.setText(schedule.barber.name);
         Button _dialogCancel = (Button)dialog.findViewById(R.id.dialog_cancel);
-        if (isHistory) {
-            _dialogCancel.setVisibility(View.GONE);
-        } else {
-            _dialogCancel.setVisibility(View.VISIBLE);
-        }
         _dialogCancel.setOnClickListener(v -> {
             ((BaseActivity)getActivity()).showLoadingDialog();
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedules");
@@ -117,16 +107,17 @@ public class AgendaFragment extends Fragment implements Observer {
                     agendamento.put("state", "Cancelado");
                     agendamento.saveInBackground(e1 -> {
                         ((BaseActivity)getActivity()).dismissLoadingDialog();
+                        ((BaseActivity)getActivity()).showSuccessDialog("O agendamento foi cancelado com sucesso", true, () -> {});
                         if (e1 == null) {
                             dialog.dismiss();
                             Schedules.getInstace().removeSchedule(schedule);
                         } else {
-                            ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(e));
+                            ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(getActivity(), e));
                         }
                     });
                 } else {
                     ((BaseActivity)getActivity()).dismissLoadingDialog();
-                    ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(e));
+                    ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(getActivity(), e));
                 }
             });
         });

@@ -5,12 +5,9 @@ import com.parse.ParseObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
 
 /**
  * Created by Fraps on 15/12/2016.

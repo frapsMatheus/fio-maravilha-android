@@ -1,16 +1,33 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.RingtoneManager;
 import android.os.Build;
+import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import com.parse.ParseUser;
+
+import br.com.fiomaravilhabarbearia.fio_maravilha.Inicial.Login;
 
 /**
  * Created by fraps on 09/02/17.
  */
 
 public class FioUtils {
+
+    private final static String projectToken = "13208701baf5de23710ea734d288fff6";
+
     public static final int getColor(Context context, int id) {
         final int version = Build.VERSION.SDK_INT;
         if (version >= 23) {
@@ -71,5 +88,48 @@ public class FioUtils {
 
             return false;
         }
+    }
+
+    public static MixpanelAPI getMixpanel(Context context) {
+        MixpanelAPI mixpanelAPI = MixpanelAPI.getInstance(context.getApplicationContext(), projectToken);
+        if (ParseUser.getCurrentUser() != null) {
+            mixpanelAPI.identify(ParseUser.getCurrentUser().getObjectId());
+        }
+        return mixpanelAPI;
+    }
+
+    public static void scheduleNotification(Context context, long delay, int notificationId) {//delay is after how much time(in millis) from current time you want to schedule the notification
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setContentTitle("Notificação de horário")
+                .setContentText("Você têm um horário daqui 1 hora.")
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.ic_stat_notification_logo)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher))
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
+        Intent intent = new Intent(context, SplashScreen.class);
+        PendingIntent activity = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.setContentIntent(activity);
+
+        Notification notification = builder.build();
+
+        Intent notificationIntent = new Intent(context, CustomMixpanelGCMReceiver.class);
+        notificationIntent.putExtra(CustomMixpanelGCMReceiver.NOTIFICATION_ID, notificationId);
+        notificationIntent.putExtra(CustomMixpanelGCMReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    public static void logout(Activity activity) {
+        ParseUser.logOut();
+        Intent intent = new Intent(activity, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }

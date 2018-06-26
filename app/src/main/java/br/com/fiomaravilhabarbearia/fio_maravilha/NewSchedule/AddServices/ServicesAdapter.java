@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
@@ -20,7 +20,7 @@ import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
 
     private List<Service> _services;
-    public ArrayList<Service> _selectedServices = new ArrayList<>();
+    public HashMap<String, Service> _selectedServices = new HashMap<>();
 
     ServicesAdapter(List<Service> services) {
         _services = services;
@@ -46,9 +46,17 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
         holder.setService(service);
         holder.setCheckBox((buttonView, isChecked) -> {
             if (isChecked) {
-                _selectedServices.add(service);
+                _selectedServices.put(service.id, service);
             } else {
-                _selectedServices.remove(service);
+                _selectedServices.remove(service.id);
+            }
+        });
+        holder.itemView.setOnClickListener(v -> {
+            holder._checkbox.setChecked(!holder._checkbox.isChecked());
+            if (holder._checkbox.isChecked()) {
+                _selectedServices.put(service.id, service);
+            } else {
+                _selectedServices.remove(service.id);
             }
         });
     }

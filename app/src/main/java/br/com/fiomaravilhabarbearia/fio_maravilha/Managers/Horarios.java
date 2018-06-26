@@ -40,7 +40,7 @@ public class Horarios extends Observable {
 
     public void getHorarios(Barber barber, Date date, Handler.Callback callback) {
         ParseQuery query = new ParseQuery("Schedules");
-        query.whereContainedIn("state", Arrays.asList("Criado"));
+        query.whereContainedIn("state", Arrays.asList("Criado","Fechado", "Chegou"));
         Calendar initialTime = Calendar.getInstance();
         initialTime.setTime(date);
         initialTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -83,7 +83,7 @@ public class Horarios extends Observable {
     }
 
     private ArrayList<Horario> cleanByDate(Date date, Barber barber) {
-        String currentDate = String.valueOf(((date.getDay() + 1) % 7) + 1);
+        String currentDate = String.valueOf(date.getDay()  + 1);
         ArrayList<Horario> result = new ArrayList<>();
         for (Horario horario : barber.horarios) {
             String[] separated = horario.horario.split("/");
@@ -143,25 +143,27 @@ public class Horarios extends Observable {
     private ArrayList<Horario> cleanPossibleHours(ArrayList<Horario> horarios, int usedSlots) {
         Stack horariosValidos = new Stack();
         int lastHour = 0;
-        String lastMinute = "00";
-        Horario firstHorario = horarios.remove(0);
-        String[] horaMinutos = firstHorario.horario.split("/")[1].split(":");
-        lastHour = Integer.valueOf(horaMinutos[0]);
-        lastMinute = horaMinutos[1];
-        horariosValidos.add(firstHorario);
-        for (Horario horario : horarios) {
-            String[] horaMinutosNovo = horario.horario.split("/")[1].split(":");
-            final int newHour = Integer.valueOf(horaMinutosNovo[0]);
-            final String newMinute = horaMinutosNovo[1];
-            if  (lastHour == newHour || (lastHour+1 == newHour && lastMinute != newMinute)) {
-            } else {
-                popStack(horariosValidos,usedSlots);
+        int lastMinute = 0;
+        if (!horarios.isEmpty()) {
+            Horario firstHorario = horarios.remove(0);
+            String[] horaMinutos = firstHorario.horario.split("/")[1].split(":");
+            lastHour = Integer.valueOf(horaMinutos[0]);
+            lastMinute = Integer.valueOf(horaMinutos[1]);
+            horariosValidos.add(firstHorario);
+            for (Horario horario : horarios) {
+                String[] horaMinutosNovo = horario.horario.split("/")[1].split(":");
+                final int newHour = Integer.valueOf(horaMinutosNovo[0]);
+                final int newMinute = Integer.valueOf(horaMinutosNovo[1]);
+                if (lastHour == newHour || (lastHour + 1 == newHour && lastMinute == 30 && newMinute == 0)) {
+                } else {
+                    popStack(horariosValidos, usedSlots);
+                }
+                horariosValidos.add(horario);
+                lastHour = newHour;
+                lastMinute = newMinute;
             }
-            horariosValidos.add(horario);
-            lastHour = newHour;
-            lastMinute = newMinute;
+            popStack(horariosValidos, usedSlots);
         }
-        popStack(horariosValidos,usedSlots);
         return new ArrayList<>(horariosValidos);
     }
 
