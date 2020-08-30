@@ -1,9 +1,11 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices;
 
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,11 +46,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
     public void onBindViewHolder(ServiceCell holder, int position) {
         Service service = _services.get(position);
         holder.setService(service);
-        holder.setCheckBox((buttonView, isChecked) -> {
+        boolean isChecked = _selectedServices.containsKey(service.id);
+        Log.d(service.name, String.valueOf(isChecked));
+        holder.setCheckBox(isChecked, (click) -> {
             if (isChecked) {
-                _selectedServices.put(service.id, service);
-            } else {
                 _selectedServices.remove(service.id);
+            } else {
+                _selectedServices.put(service.id, service);
             }
         });
         holder.itemView.setOnClickListener(v -> {

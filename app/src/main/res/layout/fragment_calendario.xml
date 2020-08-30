@@ -31,7 +31,7 @@
                     android:gravity="center"
                     android:text="PASSO 3 DE 4"
                     android:textColor="@color/colorOrange"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="normal|bold" />
 
                 <FrameLayout
@@ -53,7 +53,7 @@
                     android:gravity="center"
                     android:text="ESCOLHA A DATA"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

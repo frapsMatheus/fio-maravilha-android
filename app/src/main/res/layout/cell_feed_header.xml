@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/feed_header_date"
             android:layout_weight="1"
-            android:textSize="26sp"
+            android:textSize="26dp"
             android:textColor="@color/colorLightOrange" />
 
         <ImageView

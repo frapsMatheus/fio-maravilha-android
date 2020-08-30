@@ -1,12 +1,14 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +17,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.roughike.bottombar.BottomBar;
 
+import java.util.List;
+
 import br.com.fiomaravilhabarbearia.fio_maravilha.Agenda.AgendaFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Post;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Feed.FeedFragment;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Inicial.Login;
 import br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices.AddServicesFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Options.Options;
 import butterknife.BindView;
@@ -100,7 +114,7 @@ public class MainActivity extends BaseActivity {
                     }
                     getFragmentManager().popBackStack(_agendamentoFragment.getClass().getName(),0);
                     fragment = _agendamentoFragment;
-                    if (_currentStateAgendamento == 0) {
+                    if (_currentStateAgendamento == 0 && _agendamentoRootFragment != null) {
                         ft.addToBackStack(_agendamentoRootFragment.getClass().getName());
                     } else {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -130,6 +144,7 @@ public class MainActivity extends BaseActivity {
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.commit();
         });
+        checkToken();
     }
     public void changeFragment(Fragment fragment) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -140,7 +155,7 @@ public class MainActivity extends BaseActivity {
                 R.animator.enter_from_left,R.animator.exit_to_right);
         ft.replace(R.id.main_container, fragment, backStateName);
         ft.addToBackStack(backStateName);
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     public void setCurrentFragmentAgendamento(Fragment fragment, int tag) {
@@ -149,10 +164,26 @@ public class MainActivity extends BaseActivity {
     }
 
     public void goBackToAddServices() {
-        String className = _agendamentoRootFragment.getClass().getName();
-        getFragmentManager().popBackStackImmediate(className,0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        if (_agendamentoRootFragment != null) {
+            String className = _agendamentoRootFragment.getClass().getName();
+            getFragmentManager().popBackStackImmediate(className, 0);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+        }
+    }
+
+    private void checkToken() {
+        ParseQuery query = new ParseQuery("Posts");
+        query.orderByDescending("createdAt");
+        Activity activity = this;
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e != null && e.getCode() == 209) {
+                    FioUtils.logout(activity);
+                }
+                Log.d("Teste", "Teste");
+            }
+        });
     }
 
     @Override

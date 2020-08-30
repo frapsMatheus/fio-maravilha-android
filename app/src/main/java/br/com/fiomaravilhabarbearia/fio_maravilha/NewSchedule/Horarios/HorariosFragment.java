@@ -1,15 +1,16 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.parse.ParseUser;
 
@@ -70,7 +71,6 @@ public class HorariosFragment extends BaseFragment {
                     if (e == null) {
                         AgendamentoInstance.getInstace().clean();
                         ((MainActivity)getActivity()).goBackToAddServices();
-
                         ((BaseActivity)getActivity()).showSuccessDialog("Agendamento realizado com sucesso. Verifique nos horários se o agendamento já está disponível",true, () -> {
                             Schedules.getInstace().downloadSchedules();
                         });

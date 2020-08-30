@@ -12,7 +12,7 @@
         android:textColor="@color/colorOrange"
         android:background="@drawable/agenda_round_background"
         android:padding="6dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="12dp"

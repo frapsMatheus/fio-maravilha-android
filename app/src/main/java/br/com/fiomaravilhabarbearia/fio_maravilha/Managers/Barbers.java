@@ -16,6 +16,7 @@ import java.util.Observable;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 
 /**
  * Created by fraps on 07/02/17.
@@ -33,6 +34,10 @@ public class Barbers extends Observable {
             _barbersShared = new Barbers();
         }
         return _barbersShared;
+    }
+
+    public void kill() {
+        _barbersShared = null;
     }
 
     public void downloadBarbers(Collection<Service> services, Handler.Callback callback) {
@@ -54,7 +59,10 @@ public class Barbers extends Observable {
                     Collections.shuffle(_barbers);
                     setChanged();
                     notifyObservers();
+                    FioAnalytics.logSimpleEvent("Baixou barbeiros");
                     callback.handleMessage(new Message());
+                } else {
+                    FioAnalytics.logError("Barbers", e.getLocalizedMessage(), e);
                 }
             }
         });

@@ -44,7 +44,7 @@
             android:textColor="@color/colorBlack"
             android:text="SETEMBRO"
             android:layout_weight="1"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:fontFamily="sans-serif" />
 
         <!-- next button -->
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/calendar_year_display"
             android:layout_weight="1"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textColor="@color/colorBlack"
             android:textStyle="normal|bold"
             android:textAlignment="center" />
@@ -88,7 +88,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="D"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day1" />
         <TextView
@@ -98,7 +98,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="S"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day2" />
         <TextView
@@ -108,7 +108,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="T"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day3" />
         <TextView
@@ -118,7 +118,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="Q"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day4" />
         <TextView
@@ -128,7 +128,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="Q"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day5" />
         <TextView
@@ -138,7 +138,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="S"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day6" />
         <TextView
@@ -148,7 +148,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/colorOrange"
             android:text="S"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="normal|bold"
             android:id="@+id/calendar_day7" />
 

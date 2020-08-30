@@ -38,7 +38,7 @@
                 android:textAppearance="@style/TitleStyle"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif"
-                android:textSize="20sp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:text="@string/perfil"
@@ -47,7 +47,7 @@
                 android:id="@+id/tx_barber_profile"
                 android:textColor="@color/colorBlack"
                 android:layout_marginTop="4dp"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textAllCaps="false"
                 android:clickable="true" />
 

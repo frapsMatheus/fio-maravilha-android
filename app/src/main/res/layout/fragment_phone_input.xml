@@ -15,7 +15,7 @@
         android:text="Insira seu número de telefone"
         android:textAlignment="center"
         android:textColor="@color/colorOrange"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_marginTop="12dp"
         android:text="Brasil +55"
         android:textColor="@color/colorOrange"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <br.com.fiomaravilhabarbearia.fio_maravilha.MyEditText
         android:id="@+id/phone_input"
@@ -43,7 +43,7 @@
         android:paddingTop="2dp"
         android:textAlignment="center"
         android:textColor="@color/colorOrange"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textStyle="italic"
         app:mask="(**)*****-****"
         app:maskIconColor="@color/colorOrange"
@@ -59,6 +59,6 @@
         android:background="@drawable/horario_selected_background_no_outline"
         android:text="CONTINUAR"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     </LinearLayout>

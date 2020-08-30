@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 
 /**
  * Created by fraps on 07/02/17.
@@ -32,6 +33,10 @@ public class Services extends Observable {
         return _servicesShared;
     }
 
+    public void kill() {
+        _servicesShared = null;
+    }
+
     public void clean() {
         _services.clear();
     }
@@ -51,6 +56,9 @@ public class Services extends Observable {
                     }
                     setChanged();
                     notifyObservers();
+                    FioAnalytics.logSimpleEvent("Baixou serviços");
+                } else {
+                    FioAnalytics.logError("Serviços", e.getLocalizedMessage(), e);
                 }
             }
         });

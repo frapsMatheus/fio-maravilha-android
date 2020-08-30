@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Schedule;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 
 /**
  * Created by fraps on 10/02/17.
@@ -36,6 +37,10 @@ public class Schedules extends Observable {
         return _shared;
     }
 
+    public void kill() {
+        _shared = null;
+    }
+
     public void downloadSchedules() {
         ParseQuery query = new ParseQuery("Schedules");
         query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -50,15 +55,20 @@ public class Schedules extends Observable {
                     _proximos = new ArrayList<>();
                     _history = new ArrayList<>();
                     for (ParseObject object : objects) {
-                        Schedule newSchedule = new Schedule(object);
-                        if (newSchedule.state.equals("Finalizado")) {
-                            _history.add(newSchedule);
-                        } else {
-                            _proximos.add(newSchedule);
+                        if (object.getParseObject("barber") != null) {
+                            Schedule newSchedule = new Schedule(object);
+                            if (newSchedule.state.equals("Finalizado")) {
+                                _history.add(newSchedule);
+                            } else {
+                                _proximos.add(newSchedule);
+                            }
                         }
                     }
                     setChanged();
                     notifyObservers();
+                    FioAnalytics.logSimpleEvent("Baixou agendamentos");
+                } else {
+                    FioAnalytics.logError("Agendamentos", e.getLocalizedMessage(), e);
                 }
             }
         });

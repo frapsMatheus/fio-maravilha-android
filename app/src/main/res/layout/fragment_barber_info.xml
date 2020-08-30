@@ -42,7 +42,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textAppearance="@style/TitleStyle"
-                    android:textSize="26sp" />
+                    android:textSize="26dp" />
 
                 <TextView
                     android:text="TextView"
@@ -53,47 +53,50 @@
                     android:gravity="center"
                     android:textAppearance="@style/TitleStyle"
                     android:textStyle="normal"
-                    android:textSize="26sp" />
+                    android:textSize="26dp" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tx_bio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tx_bio"
-                android:textColor="@color/colorBlack"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
                 android:elevation="1dp"
-                android:gravity="center"
-                android:layout_margin="4dp"
+                android:gravity="center_horizontal"
                 android:text="uh da huad hudahu adhu adhu hu adhu adhu adhu adhu adhu adhu hu adhu @android:string/defaultMsisdnAlphaTag"
-                android:textSize="16sp" />
+                android:textColor="@color/colorBlack"
+                android:textSize="18dp" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="Serviços:"
+                    android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView8"
                     android:layout_weight="0"
+                    android:text="Serviços:"
                     android:textColor="@color/colorBlack"
-                    android:textStyle="normal|bold"
-                    android:textSize="16sp" />
+                    android:textSize="18dp"
+                    android:textStyle="normal|bold" />
 
                 <TextView
-                    android:text="Barba, Selagem, Cabelo"
+                    android:id="@+id/tx_servicos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tx_servicos"
-                    android:layout_weight="1"
                     android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:text="Barba, Selagem, Cabelo"
                     android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -154,6 +154,9 @@
 
 -dontwarn com.facebook.react.**
 
+# Picasso
+
+
 # okhttp
 
 -keepattributes Signature

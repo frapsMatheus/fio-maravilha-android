@@ -5,19 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.parse.ParseUser;
-
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.ErrorManager;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.MainActivity;
-import br.com.fiomaravilhabarbearia.fio_maravilha.Phone.PhoneInputActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 import br.com.fiomaravilhabarbearia.fio_maravilha.StringUtils;
 import butterknife.BindView;
@@ -39,6 +33,9 @@ public class CreateAcc extends BaseActivity {
     @BindView(R.id.input_password)
     EditText _password;
 
+    @BindView(R.id.phone_input)
+    EditText _input;
+
     private int PHONE_AUTH_CODE = 500;
 
     @Override
@@ -46,46 +43,48 @@ public class CreateAcc extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PHONE_AUTH_CODE) {
             if(resultCode == Activity.RESULT_OK){
-                ParseUser newUser = new ParseUser();
+
                 showLoadingDialog();
-                if (_password.getText().toString().length() > 2) {
-                    newUser.setPassword(_password.getText().toString());
-                }
-                newUser.setUsername(_email.getText().toString());
-                newUser.setEmail(_email.getText().toString());
-                newUser.put("name", _name.getText().toString());
-                createUser(data,newUser);
+
             }
         }
     }//onActivityResult
 
 
-    private void createUser(Intent data, ParseUser newUser) {
-        String phoneId = data.getStringExtra("phone_id");
-        String phone = data.getStringExtra("phone");
+    private void createUser() {
+        ParseUser newUser = new ParseUser();
+        if (_password.getText().toString().length() > 2) {
+            newUser.setPassword(_password.getText().toString());
+        }
+        newUser.setUsername(_email.getText().toString());
+        newUser.setEmail(_email.getText().toString());
+        newUser.put("name", _name.getText().toString());
+        String phone = "+55" + _input.getText().toString().replace("(","").replace(")","")
+                .replace("-","").replace(" ","");
+        if (phone.length() < 13) {
+            this.showErrorDialog("O número de telefone digitado não é válido");
+            return;
+        }
         newUser.put("phone", phone);
-        newUser.put("digits_id", String.valueOf(phoneId));
+        this.showLoadingDialog();
         newUser.signUpInBackground( e -> {
             dismissLoadingDialog();
             if (e == null) {
-                finishAccCreation(newUser, phone);
+                FioAnalytics.logSimpleEvent("Primeira etapa cadastro");
+                finishAccCreation();
             } else {
-                showErrorDialog(ErrorManager.getErrorMessage(e));
+                FioAnalytics.logError("Create user", ErrorManager.getErrorMessage(e), e);
+                if (e.getCode() == 201) {
+                    showErrorDialog("Uma conta para esse email já existe. Utilize a recuperação de senha para acessar a conta.");
+                    onBackPressed();
+                } else {
+                    showErrorDialog(ErrorManager.getErrorMessage(e));
+                }
             }
         });
     }
 
-    private void finishAccCreation(ParseUser newUser, String phone) {
-
-        FioUtils.getMixpanel(CreateAcc.this)
-                .track("Finalizar cadastro");
-        MixpanelAPI.People people = FioUtils.getMixpanel(getApplicationContext()).getPeople();
-        people.identify(newUser.getObjectId());
-        people.set("$email",_email.getText().toString());
-        people.set("$name",_name.getText().toString());
-        people.set("$phone",phone);
-        people.set("Created", DateFormat.getDateTimeInstance().format(new Date()));
-        people.initPushHandling("845359638452");
+    private void finishAccCreation() {
         Intent newIntent = new Intent(CreateAcc.this, MainActivity.class);
         newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(newIntent);
@@ -107,8 +106,7 @@ public class CreateAcc extends BaseActivity {
         } else if (!StringUtils.isPasswordValid(_password.getText().toString())) {
             _password.setError("A senha deve conter ao menos 6 caracteres");
         } else {
-            Intent i = new Intent(this, PhoneInputActivity.class);
-            startActivityForResult(i, PHONE_AUTH_CODE);
+            createUser();
         }
     }
 }

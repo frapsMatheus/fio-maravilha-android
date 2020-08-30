@@ -11,14 +11,20 @@ import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
-import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
 import com.parse.ParseUser;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Inicial.Login;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.AgendamentoInstance;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Barbers;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Horarios;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Posts;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Schedules;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Services;
 
 /**
  * Created by fraps on 09/02/17.
@@ -90,14 +96,6 @@ public class FioUtils {
         }
     }
 
-    public static MixpanelAPI getMixpanel(Context context) {
-        MixpanelAPI mixpanelAPI = MixpanelAPI.getInstance(context.getApplicationContext(), projectToken);
-        if (ParseUser.getCurrentUser() != null) {
-            mixpanelAPI.identify(ParseUser.getCurrentUser().getObjectId());
-        }
-        return mixpanelAPI;
-    }
-
     public static void scheduleNotification(Context context, long delay, int notificationId) {//delay is after how much time(in millis) from current time you want to schedule the notification
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -115,9 +113,9 @@ public class FioUtils {
 
         Notification notification = builder.build();
 
-        Intent notificationIntent = new Intent(context, CustomMixpanelGCMReceiver.class);
-        notificationIntent.putExtra(CustomMixpanelGCMReceiver.NOTIFICATION_ID, notificationId);
-        notificationIntent.putExtra(CustomMixpanelGCMReceiver.NOTIFICATION, notification);
+        Intent notificationIntent = new Intent(context, MyNotificationPublisher.class);
+        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION_ID, notificationId);
+        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
@@ -127,6 +125,12 @@ public class FioUtils {
 
     public static void logout(Activity activity) {
         ParseUser.logOut();
+        AgendamentoInstance.getInstace().kill();
+        Barbers.getInstace().kill();
+        Horarios.getInstace().kill();
+        Posts.getInstace().kill();
+        Schedules.getInstace().kill();
+        Services.getInstace().kill();
         Intent intent = new Intent(activity, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);

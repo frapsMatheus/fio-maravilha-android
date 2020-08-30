@@ -58,7 +58,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/titulo_dia_do_noivo"
                 android:textColor="@color/colorOrange"
-                android:textSize="23sp"
+                android:textSize="23dp"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_marginBottom="24dp"
                 android:text="@string/texto_dia_do_noivo"
                 android:textColor="@color/colorLightOrange"
-                android:textSize="17sp" />
+                android:textSize="17dp" />
         </LinearLayout>
     </ScrollView>
 

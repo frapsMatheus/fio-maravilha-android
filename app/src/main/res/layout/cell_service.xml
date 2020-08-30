@@ -26,7 +26,7 @@
                 android:textAppearance="@style/TitleStyle"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:text="TextView"
@@ -35,7 +35,7 @@
                 android:id="@+id/tx_service_price"
                 android:textColor="@color/colorBlack"
                 android:layout_marginTop="4dp"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 

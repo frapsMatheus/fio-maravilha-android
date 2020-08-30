@@ -1,11 +1,12 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Horarios;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;

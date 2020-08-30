@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Post;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 
 /**
  * Created by fraps on 08/02/17.
@@ -46,9 +47,16 @@ public class Posts extends Observable {
                     }
                     setChanged();
                     notifyObservers();
+                    FioAnalytics.logSimpleEvent("Baixou posts");
+                } else {
+                    FioAnalytics.logError("Posts", e.getLocalizedMessage(), e);
                 }
             }
         });
+    }
+
+    public void kill() {
+        _shared = null;
     }
 
     @Override

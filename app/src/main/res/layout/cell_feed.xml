@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/feed_date"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@color/colorOrange"
             android:background="@drawable/round_orange_empty"
             android:paddingBottom="6dp"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/feed_title"
-        android:textSize="23sp"
+        android:textSize="23dp"
         android:textStyle="normal|bold"
         android:textColor="@color/colorOrange"
         android:layout_marginBottom="8dp" />
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/feed_text"
-        android:textSize="17sp"
+        android:textSize="17dp"
         android:textColor="@color/colorLightOrange"
         android:layout_marginBottom="24dp" />
 

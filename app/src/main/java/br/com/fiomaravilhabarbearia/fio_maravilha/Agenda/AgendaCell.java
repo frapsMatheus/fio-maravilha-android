@@ -1,8 +1,9 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.Agenda;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

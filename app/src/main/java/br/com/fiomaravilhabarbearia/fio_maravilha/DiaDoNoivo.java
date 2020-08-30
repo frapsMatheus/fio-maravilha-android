@@ -1,8 +1,9 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,9 +1,10 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.AddServices;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
@@ -35,8 +36,9 @@ class ServiceCell extends RecyclerView.ViewHolder {
         _servicePrice.setText("R$" + String.format("%.2f",service.price));
     }
 
-    void  setCheckBox(CheckBox.OnCheckedChangeListener check) {
-        _checkbox.setOnCheckedChangeListener(check);
+    void  setCheckBox(boolean isChecked, CheckBox.OnClickListener check) {
+        _checkbox.setChecked(isChecked);
+        _checkbox.setOnClickListener(check);
     }
 
 }

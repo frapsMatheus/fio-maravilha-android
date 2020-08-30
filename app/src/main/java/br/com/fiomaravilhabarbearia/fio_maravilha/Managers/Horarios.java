@@ -15,10 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
+import java.util.TimeZone;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Barber;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Horario;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Schedule;
+import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 
 /**
  * Created by fraps on 08/02/17.
@@ -38,15 +40,19 @@ public class Horarios extends Observable {
         return _shared;
     }
 
+    public void kill() {
+        _shared = null;
+    }
+
     public void getHorarios(Barber barber, Date date, Handler.Callback callback) {
         ParseQuery query = new ParseQuery("Schedules");
         query.whereContainedIn("state", Arrays.asList("Criado","Fechado", "Chegou"));
-        Calendar initialTime = Calendar.getInstance();
+        Calendar initialTime = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         initialTime.setTime(date);
         initialTime.set(Calendar.HOUR_OF_DAY, 0);
         Date initialDate = initialTime.getTime();
 
-        Calendar finalTime = Calendar.getInstance();
+        Calendar finalTime = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         finalTime.setTime(date);
         finalTime.set(Calendar.HOUR_OF_DAY, 20);
         Date finalDate = finalTime.getTime();
@@ -64,6 +70,9 @@ public class Horarios extends Observable {
                     }
                     generateEmptyHorarios(barber,date,schedules);
                     callback.handleMessage(new Message());
+                    FioAnalytics.logSimpleEvent("Baixou horários");
+                } else {
+                    FioAnalytics.logError("Horários", e.getLocalizedMessage(), e);
                 }
             }
         });
@@ -117,8 +126,8 @@ public class Horarios extends Observable {
     }
 
     private ArrayList<Horario> cleanCurrentDate(ArrayList<Horario> horarios, Date selectedDate) {
-        Calendar selectedCal = Calendar.getInstance();
-        Calendar currentCal = Calendar.getInstance();
+        Calendar selectedCal = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
+        Calendar currentCal = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         selectedCal.setTime(selectedDate);
         if (selectedCal.get(Calendar.YEAR) == currentCal.get(Calendar.YEAR) &&
                 selectedCal.get(Calendar.DAY_OF_YEAR) == currentCal.get(Calendar.DAY_OF_YEAR)) {

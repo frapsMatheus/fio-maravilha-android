@@ -1,12 +1,13 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.Calendar;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,8 +76,6 @@ public class CalendarioFragment extends BaseFragment {
         try {
             JSONObject props = new JSONObject();
             props.put("Dia", AgendamentoInstance.getInstace()._chosendDate);
-            FioUtils.getMixpanel(getActivity())
-                    .track("Escolheu Dia", props);
         } catch (JSONException e) {
         }
         ((BaseActivity)getActivity()).showLoadingDialog();

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:textStyle="normal|bold"
             android:textColor="@color/colorOrange"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:layout_marginTop="8dp" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textColor="@color/colorBlack"
             android:gravity="center"
             android:background="@drawable/round_black_empty"
@@ -42,11 +42,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
             android:textColor="@color/colorBlack"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:gravity="center"
             android:layout_marginTop="4dp" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

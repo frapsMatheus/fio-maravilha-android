@@ -37,6 +37,10 @@ public class AgendamentoInstance {
         return _shared;
     }
 
+    public void kill() {
+        _shared = null;
+    }
+
     public void clean(){
         _chosenServices.clear();
         _chosenBarber = null;
@@ -55,7 +59,7 @@ public class AgendamentoInstance {
     public boolean isHorarioValid(Horario horario) {
         Calendar c = Calendar.getInstance();
         Calendar chosenCal = Calendar.getInstance();
-        chosenCal.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+        chosenCal.setTimeZone(TimeZone.getTimeZone("America/Recife"));
         chosenCal.setTime(_chosendDate);
         String[] split = horario.horario.split("/")[1].split(":");
         chosenCal.set(Calendar.HOUR_OF_DAY,Integer.valueOf(split[0]));

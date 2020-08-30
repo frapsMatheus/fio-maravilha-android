@@ -14,7 +14,7 @@
         android:text="Insira o código de 6 dígitos que enviamos a você."
         android:textAlignment="viewStart"
         android:textColor="@color/colorOrange"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <br.com.fiomaravilhabarbearia.fio_maravilha.MyEditText
         android:id="@+id/code_input"
@@ -32,7 +32,7 @@
         android:paddingTop="2dp"
         android:textAlignment="center"
         android:textColor="@color/colorOrange"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textStyle="italic" />
 
     <LinearLayout
@@ -55,7 +55,7 @@
             android:fontFamily="sans-serif"
             android:textStyle="normal|bold"
             android:background="@drawable/horario_selected_background_no_outline"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/code_resend"
@@ -67,7 +67,7 @@
             android:fontFamily="sans-serif"
             android:text="Reenviar"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="normal|bold" />
 
     </LinearLayout>

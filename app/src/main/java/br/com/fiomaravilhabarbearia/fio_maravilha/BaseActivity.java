@@ -1,10 +1,14 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 
@@ -16,6 +20,7 @@ public class BaseActivity extends AppCompatActivity {
     private MaterialDialog _dialog;
     private MaterialDialog _sucessDialog;
     private MaterialDialog _errorDialog;
+    private MaterialDialog _newDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +88,25 @@ public class BaseActivity extends AppCompatActivity {
                 .content(error + ". Se o problema persistir, entrar em contato através do telefone: (61) 3202 - 5006")
                 .cancelable(false)
                 .positiveText("OK")
+                .show());
+    }
+
+    public void showDialog(String title, String texto) {
+        runOnUiThread(() -> _newDialog = new MaterialDialog.Builder(this)
+                .backgroundColor(FioUtils.getColor(this, R.color.colorBlack))
+                .titleColor(FioUtils.getColor(this, R.color.colorOrange))
+                .contentColor(FioUtils.getColor(this, R.color.colorLightOrange))
+                .widgetColor(FioUtils.getColor(this, R.color.colorLightOrange))
+                .title(title)
+                .content(texto)
+                .cancelable(false)
+                .negativeText("Fechar")
+                .positiveText("(61) 3202 - 5006")
+                .onPositive((dialog, which) -> {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:6132025006"));
+                    startActivity(intent);
+                })
                 .show());
     }
 

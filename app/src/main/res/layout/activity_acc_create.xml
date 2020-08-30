@@ -4,15 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/activity_background"
-        android:alpha="1"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/background"
-        android:layout_below="@+id/toolbar" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,30 +11,41 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:id="@+id/activity_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerInParent="true"
+        android:alpha="1"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/background" />
+
     <TextView
-        android:text="INSIRA SEUS DADOS"
+        android:id="@+id/TAG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TAG"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal|bold"
+        android:layout_above="@+id/input_nome"
+        android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:clickable="true"
-        android:textAlignment="center"
         android:background="@null"
-        android:layout_alignParentTop="false"
-        android:layout_above="@+id/input_nome" />
-
+        android:clickable="true"
+        android:fontFamily="sans-serif"
+        android:text="INSIRA SEUS DADOS"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24dp"
+        android:textStyle="normal|bold" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/input_nome"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/colorBlack"
         android:background="@drawable/input_background"
         android:paddingLeft="8dp"
         android:paddingTop="2dp"
@@ -52,7 +54,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="12dp"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:hint="Nome"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -63,7 +65,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/input_email"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/colorBlack"
         android:background="@drawable/input_background"
         android:paddingLeft="8dp"
         android:paddingTop="2dp"
@@ -72,44 +74,67 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="12dp"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:hint="Email"
         android:textAlignment="center"
         android:layout_above="@+id/input_password" />
 
     <EditText
+        android:id="@+id/input_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/input_password"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/phone_input"
+        android:layout_centerInParent="false"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="12dp"
-        android:textColor="@color/colorOrange"
+        android:layout_marginRight="30dp"
         android:background="@drawable/input_background"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"
         android:paddingLeft="8dp"
         android:paddingTop="2dp"
-        android:paddingBottom="2dp"
         android:paddingRight="8dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:textSize="22sp"
-        android:hint="Senha"
+        android:paddingBottom="2dp"
         android:textAlignment="center"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true" />
+        android:textColor="@color/colorBlack"
+        android:textSize="22dp" />
+
+
+    <br.com.fiomaravilhabarbearia.fio_maravilha.MyEditText
+        android:id="@+id/phone_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/input_background"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="2dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="2dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="22dp"
+        android:textStyle="italic"
+        app:mask="(**)*****-****"
+        app:maskIconColor="@color/colorOrange"
+        app:notMaskedSymbol="*" />
 
     <Button
         android:text="Continuar"
         android:layout_width="match_parent"
         android:id="@+id/create_next"
-        android:layout_below="@+id/input_password"
+        android:layout_below="@+id/phone_input"
         android:layout_marginTop="12dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textColor="@android:color/white"
         android:background="@drawable/horario_selected_background_no_outline"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_height="40dp" />
 
 </RelativeLayout>

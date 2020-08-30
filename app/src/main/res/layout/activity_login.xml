@@ -36,7 +36,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/input_email"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/colorBlack"
         android:background="@drawable/input_background"
         android:paddingLeft="8dp"
         android:paddingTop="2dp"
@@ -46,7 +46,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:hint="Email"
         android:textAlignment="center" />
 
@@ -59,7 +59,7 @@
         android:layout_below="@+id/input_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/colorBlack"
         android:background="@drawable/input_background"
         android:paddingLeft="8dp"
         android:paddingTop="2dp"
@@ -67,7 +67,7 @@
         android:paddingRight="8dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:hint="Senha"
         android:textAlignment="center" />
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView6"
             android:textColor="@color/colorOrange"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp" />
 
@@ -109,39 +109,18 @@
         </FrameLayout>
     </LinearLayout>
 
-
-
-    <Button
-        android:id="@+id/fb_login"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_alignLeft="@+id/divider"
-        android:layout_alignRight="@+id/divider"
-        android:layout_below="@+id/divider"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/fb_button_background"
-        android:drawableLeft="@drawable/fb_logo"
-        android:focusable="false"
-        android:paddingLeft="16dp"
-        android:paddingRight="8dp"
-        android:text="CONECTAR COM FACEBOOK"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:textStyle="normal|bold" />
-
     <TextView
         android:text="CRIAR NOVA CONTA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/login_new_acc"
-        android:layout_below="@+id/fb_login"
+        android:layout_below="@+id/divider"
         android:clickable="true"
         android:textColor="@color/colorOrange"
         android:layout_marginTop="12dp"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:text="Esqueceu a senha?"
@@ -153,7 +132,7 @@
         android:clickable="true"
         android:textColor="@color/colorOrange"
         android:layout_marginTop="12dp"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <Button
         android:text="ENTRAR"
@@ -167,7 +146,7 @@
         android:textStyle="normal|bold"
         android:layout_below="@+id/input_password"
         android:background="@drawable/horario_selected_background_no_outline"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_height="40dp" />
 
 </RelativeLayout>

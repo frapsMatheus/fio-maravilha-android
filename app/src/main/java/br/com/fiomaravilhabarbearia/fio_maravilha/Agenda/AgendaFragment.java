@@ -4,16 +4,17 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -99,27 +100,13 @@ public class AgendaFragment extends BaseFragment implements Observer {
         TextView _dialogBarber = (TextView)dialog.findViewById(R.id.dialog_barbeiro);
         _dialogBarber.setText(schedule.barber.name);
         Button _dialogCancel = (Button)dialog.findViewById(R.id.dialog_cancel);
+        if (schedule.state.equals("Finalizado")) {
+            _dialogCancel.setVisibility(View.GONE);
+        } else {
+            _dialogCancel.setVisibility(View.VISIBLE);
+        }
         _dialogCancel.setOnClickListener(v -> {
-            ((BaseActivity)getActivity()).showLoadingDialog();
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Schedules");
-            query.getInBackground(schedule.id, (agendamento, e) -> {
-                if (e == null) {
-                    agendamento.put("state", "Cancelado");
-                    agendamento.saveInBackground(e1 -> {
-                        ((BaseActivity)getActivity()).dismissLoadingDialog();
-                        ((BaseActivity)getActivity()).showSuccessDialog("O agendamento foi cancelado com sucesso", true, () -> {});
-                        if (e1 == null) {
-                            dialog.dismiss();
-                            Schedules.getInstace().removeSchedule(schedule);
-                        } else {
-                            ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(getActivity(), e));
-                        }
-                    });
-                } else {
-                    ((BaseActivity)getActivity()).dismissLoadingDialog();
-                    ((BaseActivity)getActivity()).showErrorDialog(ErrorManager.getErrorMessage(getActivity(), e));
-                }
-            });
+            ((BaseActivity)getActivity()).showDialog("Cancelamento", "Caso queira cancelar ou trocar o seu horário, por favor, ligue no 3202-5006. Obrigado!");
         });
         Button _dialogClose = (Button)dialog.findViewById(R.id.toolbar_cancel);
         _dialogClose.setOnClickListener(v -> dialog.dismiss());

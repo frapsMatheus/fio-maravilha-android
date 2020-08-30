@@ -1,10 +1,11 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class BarberAdapter extends RecyclerView.Adapter<BarberCell> {
     }
 
     public Barber getSelectedBarber() throws Exception {
-        if (currentSelected == -1) {
+        if (currentSelected == -1 || _barbers.get(currentSelected) == null) {
             throw new Exception();
         }
         return _barbers.get(currentSelected);

@@ -1,12 +1,13 @@
 package br.com.fiomaravilhabarbearia.fio_maravilha.NewSchedule.SelectBarber;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,8 +74,6 @@ public class SelectBarber extends BaseFragment {
             try {
                 JSONObject props = new JSONObject();
                 props.put("Barbeiro", AgendamentoInstance.getInstace()._chosenBarber.name);
-                FioUtils.getMixpanel(getActivity())
-                        .track("Escolheu Barbeiro", props);
             } catch (JSONException e) {
             }
             ((MainActivity)getActivity()).changeFragment(new CalendarioFragment());

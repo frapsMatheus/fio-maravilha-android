@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.TimeZone;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.R;
@@ -41,7 +42,7 @@ public class CalendarView extends LinearLayout
     private String dateFormat;
 
     // current displayed month
-    private Calendar currentDate = Calendar.getInstance();
+    private Calendar currentDate = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
 
     public Date _selectedDate = new Date(1);
     public boolean dateWasSelected = false;
@@ -60,9 +61,9 @@ public class CalendarView extends LinearLayout
     private GridView grid;
 
     public void selectDate(Date selectedDate) {
-        Calendar today = Calendar.getInstance();
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         today.set(Calendar.HOUR_OF_DAY, 3);
-        Calendar selectedDay = Calendar.getInstance();
+        Calendar selectedDay = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         selectedDay.setTime(selectedDate);
         int month = selectedDay.get(Calendar.MONTH);
         int year = selectedDay.get(Calendar.YEAR);
