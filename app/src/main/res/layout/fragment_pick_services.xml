@@ -47,27 +47,36 @@
             android:layout_marginTop="4dp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/type_recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/services_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:id="@+id/services_recyclerView"
-            android:scrollbars="vertical"
-            />
+            android:scrollbars="vertical" />
 
         <Button
-            android:text="PRÓXIMO PASSO >"
-            android:layout_width="match_parent"
             android:id="@+id/tx_proximo"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="@color/colorBlack"
-            android:textColor="@color/colorOrange"
-            android:layout_weight="0"
-            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_height="48dp" />
+            android:layout_marginBottom="2dp"
+            android:layout_weight="0"
+            android:background="@color/colorBlack"
+            android:text="PRÓXIMO PASSO >"
+            android:textColor="@color/colorOrange" />
     </LinearLayout>
 </LinearLayout>

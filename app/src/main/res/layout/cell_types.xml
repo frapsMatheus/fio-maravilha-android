@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/horario_background_no_outline"
+        android:id="@+id/horario_outer_background">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/type_selected"
+            android:layout_margin="4dp"
+            android:id="@+id/type_inner_background">
+
+            <TextView
+                android:text="10:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_text"
+                android:textSize="16dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorLightOrange" />
+        </FrameLayout>
+    </FrameLayout>
+</RelativeLayout>

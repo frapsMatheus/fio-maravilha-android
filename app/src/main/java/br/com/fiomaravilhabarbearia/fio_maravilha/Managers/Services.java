@@ -20,6 +20,7 @@ import br.com.fiomaravilhabarbearia.fio_maravilha.FioAnalytics;
 public class Services extends Observable {
 
     public ArrayList<Service> _services = new ArrayList<>();
+    public ArrayList<String> _types = new ArrayList<>();
 
     private static Services _servicesShared = null;
 
@@ -51,8 +52,14 @@ public class Services extends Observable {
                 downloaded = true;
                 if (e == null) {
                     _services.clear();
+                    _types.clear();
                     for (ParseObject object : objects) {
                         _services.add(new Service(object));
+                    }
+                    for (Service service : _services) {
+                        if (!_types.contains(service.type)) {
+                            _types.add(service.type);
+                        }
                     }
                     setChanged();
                     notifyObservers();

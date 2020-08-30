@@ -40,7 +40,12 @@ public class AddServicesFragment extends BaseFragment implements Observer {
 
     @BindView(R.id.services_recyclerView)
     RecyclerView _recyclerView;
+
+    @BindView(R.id.type_recyclerView)
+    RecyclerView _typesRecyclerView;
+
     private ServicesAdapter _adapter;
+    private TypeAdapter _typesAdapter;
 
     @Nullable
     @Override
@@ -51,6 +56,11 @@ public class AddServicesFragment extends BaseFragment implements Observer {
         _adapter = new ServicesAdapter(Services.getInstace()._services);
         _recyclerView.setAdapter(_adapter);
         _recyclerView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+
+        _typesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        _typesAdapter = new TypeAdapter(Services.getInstace()._types, this);
+        _typesRecyclerView.setAdapter(_typesAdapter);
+
         Services.getInstace().addObserver(this);
         ((MainActivity)getActivity()).setCurrentFragmentAgendamento(this,0);
         return view;
@@ -86,6 +96,12 @@ public class AddServicesFragment extends BaseFragment implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         _adapter.setSevices(Services.getInstace()._services);
+        _typesAdapter.setTypes(Services.getInstace()._types);
+    }
+
+    public void changeType(String type) {
+        _adapter.filterServices(type);
+        _recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

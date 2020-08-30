@@ -22,6 +22,7 @@ import br.com.fiomaravilhabarbearia.fio_maravilha.R;
 public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
 
     private List<Service> _services;
+    private List<Service> _filteredServices = new ArrayList<>();
     public HashMap<String, Service> _selectedServices = new HashMap<>();
 
     ServicesAdapter(List<Service> services) {
@@ -32,6 +33,17 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
     public void setSevices(List<Service> services) {
         _services = services;
         _selectedServices.clear();
+        filterServices(services.get(0).type);
+
+    }
+
+    public void filterServices(String type) {
+        _filteredServices = new ArrayList<>();
+        for(Service service : _services) {
+            if (service.type != null && service.type.equals(type)) {
+                _filteredServices.add(service);
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -44,7 +56,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
 
     @Override
     public void onBindViewHolder(ServiceCell holder, int position) {
-        Service service = _services.get(position);
+        Service service = _filteredServices.get(position);
         holder.setService(service);
         boolean isChecked = _selectedServices.containsKey(service.id);
         Log.d(service.name, String.valueOf(isChecked));
@@ -67,6 +79,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServiceCell> {
 
     @Override
     public int getItemCount() {
-        return _services.size();
+        return _filteredServices.size();
     }
 }

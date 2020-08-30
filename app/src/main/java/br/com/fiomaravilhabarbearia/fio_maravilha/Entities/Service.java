@@ -10,6 +10,7 @@ public class Service extends Object {
 
     public String id;
     public String name;
+    public String type;
     public double price;
     public Integer duration;
 
@@ -18,6 +19,7 @@ public class Service extends Object {
         this.id = object.getObjectId();
         this.name = object.getString("name");
         this.price = object.getDouble("price");
+        this.type = object.getString("type");
         this.duration = object.getInt("duration");
     }
 

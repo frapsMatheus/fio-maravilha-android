@@ -16,17 +16,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseActivity;
 import br.com.fiomaravilhabarbearia.fio_maravilha.BaseFragment;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Schedule;
+import br.com.fiomaravilhabarbearia.fio_maravilha.Entities.Service;
 import br.com.fiomaravilhabarbearia.fio_maravilha.ErrorManager;
 import br.com.fiomaravilhabarbearia.fio_maravilha.FioUtils;
 import br.com.fiomaravilhabarbearia.fio_maravilha.Managers.Schedules;
@@ -106,7 +111,20 @@ public class AgendaFragment extends BaseFragment implements Observer {
             _dialogCancel.setVisibility(View.VISIBLE);
         }
         _dialogCancel.setOnClickListener(v -> {
-            ((BaseActivity)getActivity()).showDialog("Cancelamento", "Caso queira cancelar ou trocar o seu horário, por favor, ligue no 3202-5006. Obrigado!");
+            HashMap<String, String> params = new HashMap();
+            params.put("scheduleId", schedule.id);
+            ParseCloud.callFunctionInBackground("Cancelamento", params, new FunctionCallback<String>() {
+                @Override
+                public void done(String response, ParseException e) {
+                    if (e == null) {
+                        Schedules.getInstace().downloadSchedules();
+                        dialog.dismiss();
+                        ((BaseActivity)getActivity()).showDialog("Cancelamento realizado", "O cancelamento foi realizado com sucesso");
+                    } else {
+                        ((BaseActivity)getActivity()).showDialog("Cancelamento", e.getMessage() + " Caso queira cancelar ou trocar o seu horário, por favor, ligue no 3202-5006. Obrigado!");
+                    }
+                }
+            });
         });
         Button _dialogClose = (Button)dialog.findViewById(R.id.toolbar_cancel);
         _dialogClose.setOnClickListener(v -> dialog.dismiss());
