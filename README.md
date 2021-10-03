@@ -1,3 +1,8 @@
+<p align="center">
+<img src="https://play-lh.googleusercontent.com/TWqzmsEro8NShCnHgp2aYTIQXx_JavLk-CSKWfF2TKAfcTnjvXr1DnVG6PEIjoSv9w=s360-rw" alt="Logo" width="250"/>
+</p>
+
+
 # Fio Maravilha - Android
 
 ![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)
