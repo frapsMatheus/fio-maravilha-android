@@ -45,7 +45,7 @@ public class Schedules extends Observable {
         ParseQuery query = new ParseQuery("Schedules");
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.include("barber");
-        query.whereContainedIn("state", Arrays.asList("Criado","Finalizado"));
+        query.whereContainedIn("state", Arrays.asList("Criado","Finalizado", "Fidelizi"));
         query.orderByAscending("date");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -57,10 +57,10 @@ public class Schedules extends Observable {
                     for (ParseObject object : objects) {
                         if (object.getParseObject("barber") != null) {
                             Schedule newSchedule = new Schedule(object);
-                            if (newSchedule.state.equals("Finalizado")) {
-                                _history.add(newSchedule);
-                            } else {
+                            if (newSchedule.state.equals("Criado")) {
                                 _proximos.add(newSchedule);
+                            } else {
+                                _history.add(newSchedule);
                             }
                         }
                     }

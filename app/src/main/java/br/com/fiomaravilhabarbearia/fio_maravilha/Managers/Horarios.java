@@ -2,6 +2,7 @@ package br.com.fiomaravilhabarbearia.fio_maravilha.Managers;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -30,6 +31,37 @@ public class Horarios extends Observable {
 
     public ArrayList<Horario> _horarios = new ArrayList<>();
 
+
+    private static String[] POSSIBLE_HOURS = {
+            "08:00", "08:10", "08:20", "08:30", "08:40", "08:50",
+            "09:00", "09:10", "09:20", "09:30", "09:40", "09:50",
+            "10:00", "10:10", "10:20", "10:30", "10:40", "10:50",
+            "11:00", "11:10", "11:20", "11:30", "11:40", "11:50",
+            "12:00", "12:10", "12:20", "12:30", "12:40", "12:50",
+            "13:00", "13:10", "13:20", "13:30", "13:40", "13:50",
+            "14:00", "14:10", "14:20", "14:30", "14:40", "14:50",
+            "15:00", "15:10", "15:20", "15:30", "15:40", "15:50",
+            "16:00", "16:10", "16:20", "16:30", "16:40", "16:50",
+            "17:00", "17:10", "17:20", "17:30", "17:40", "17:50",
+            "18:00", "18:10", "18:20", "18:30", "18:40", "18:50",
+            "19:00", "19:10", "19:20", "19:30", "19:40", "19:50",
+            "20:00" };
+
+    private static String[] APP_POSSIBLE_HOURS = {
+            "09:00", "09:40",
+            "10:20",
+            "11:00", "11:40",
+            "12:20",
+            "13:00", "13:40",
+            "14:20",
+            "15:00", "15:40",
+            "16:20",
+            "17:00", "17:40",
+            "18:20",
+            "19:00", "19:40",
+            "20:20",
+    };
+
     private static Horarios _shared;
     boolean downloaded = false;
 
@@ -46,7 +78,7 @@ public class Horarios extends Observable {
 
     public void getHorarios(Barber barber, Date date, Handler.Callback callback) {
         ParseQuery query = new ParseQuery("Schedules");
-        query.whereContainedIn("state", Arrays.asList("Criado","Fechado", "Chegou"));
+        query.whereContainedIn("state", Arrays.asList("Criado", "Fechado", "Chegou"));
         Calendar initialTime = Calendar.getInstance(TimeZone.getTimeZone("America/Recife"));
         initialTime.setTime(date);
         initialTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -68,7 +100,7 @@ public class Horarios extends Observable {
                     for (ParseObject object : objects) {
                         schedules.add(new Schedule(object));
                     }
-                    generateEmptyHorarios(barber,date,schedules);
+                    generateEmptyHorarios(barber, date, schedules);
                     callback.handleMessage(new Message());
                     FioAnalytics.logSimpleEvent("Baixou horários");
                 } else {
@@ -79,24 +111,24 @@ public class Horarios extends Observable {
     }
 
     private void generateEmptyHorarios(Barber barber, Date date, ArrayList<Schedule> schedules) {
-        ArrayList<Horario> horarios = cleanByDate(date,barber);
-        ArrayList<Horario> currentDateHorarios = cleanCurrentDate(horarios,date);
+        ArrayList<Horario> horarios = cleanByDate(date, barber);
+        ArrayList<Horario> currentDateHorarios = cleanCurrentDate(horarios, date);
         ArrayList<Horario> emptyHorarios;
         if (schedules != null) {
-            emptyHorarios = cleanBusyHours(currentDateHorarios,schedules);
+            emptyHorarios = cleanBusyHours(currentDateHorarios, schedules);
         } else {
             emptyHorarios = currentDateHorarios;
         }
-        _horarios =  cleanPossibleHours(emptyHorarios,
+        _horarios = cleanPossibleHours(emptyHorarios,
                 AgendamentoInstance.getInstace().calculateIntervals());
     }
 
     private ArrayList<Horario> cleanByDate(Date date, Barber barber) {
-        String currentDate = String.valueOf(date.getDay()  + 1);
+        String currentDate = String.valueOf(date.getDay() + 1);
         ArrayList<Horario> result = new ArrayList<>();
         for (Horario horario : barber.horarios) {
             String[] separated = horario.horario.split("/");
-            if (separated[0].equalsIgnoreCase(currentDate) ) {
+            if (separated[0].equalsIgnoreCase(currentDate)) {
                 result.add(horario);
             }
         }
@@ -150,37 +182,37 @@ public class Horarios extends Observable {
     }
 
     private ArrayList<Horario> cleanPossibleHours(ArrayList<Horario> horarios, int usedSlots) {
-        Stack horariosValidos = new Stack();
-        int lastHour = 0;
-        int lastMinute = 0;
-        if (!horarios.isEmpty()) {
-            Horario firstHorario = horarios.remove(0);
-            String[] horaMinutos = firstHorario.horario.split("/")[1].split(":");
-            lastHour = Integer.valueOf(horaMinutos[0]);
-            lastMinute = Integer.valueOf(horaMinutos[1]);
-            horariosValidos.add(firstHorario);
-            for (Horario horario : horarios) {
-                String[] horaMinutosNovo = horario.horario.split("/")[1].split(":");
-                final int newHour = Integer.valueOf(horaMinutosNovo[0]);
-                final int newMinute = Integer.valueOf(horaMinutosNovo[1]);
-                if (lastHour == newHour || (lastHour + 1 == newHour && lastMinute == 30 && newMinute == 0)) {
+        ArrayList<Horario> result = new ArrayList<>();
+        if (horarios.size() > 0) {
+            int currentInterval = 0;
+            int lastIndex = -1;
+            // eslint-disable-next-line no-restricted-syntax
+            for (int i = 0; i < horarios.size(); i += 1) {
+                Horario horario = horarios.get(i);
+                String day = horario.horario.split("/")[0];
+                String hora = horario.horario.split("/")[1];
+                if (lastIndex == -1) {
+                    lastIndex = Arrays.binarySearch(POSSIBLE_HOURS, hora);
+                    currentInterval = 1;
                 } else {
-                    popStack(horariosValidos, usedSlots);
+                    int currentIndex = Arrays.binarySearch(POSSIBLE_HOURS, hora);
+                    if (currentIndex - lastIndex != 1) {
+                        currentInterval = 1;
+                    } else if (currentInterval < usedSlots) {
+                        currentInterval += 1;
+                    }
+                    lastIndex = currentIndex;
+                    if (currentInterval == usedSlots) {
+                        String novaHora = POSSIBLE_HOURS[currentIndex - usedSlots + 1];
+                        Log.d("Hora", novaHora);
+                        if (Arrays.binarySearch(APP_POSSIBLE_HOURS, novaHora) > -1) {
+                            result.add(new Horario(day + "/" + novaHora));
+                        }
+                    }
                 }
-                horariosValidos.add(horario);
-                lastHour = newHour;
-                lastMinute = newMinute;
             }
-            popStack(horariosValidos, usedSlots);
+            return result;
         }
-        return new ArrayList<>(horariosValidos);
-    }
-
-    private void popStack(Stack stack, int usedSlots) {
-        for (int i=1; i< usedSlots; i++) {
-            if (stack.size() > 0) {
-                stack.pop();
-            }
-        }
+        return horarios;
     }
 }

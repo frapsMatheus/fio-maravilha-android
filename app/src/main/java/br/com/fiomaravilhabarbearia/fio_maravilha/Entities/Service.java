@@ -20,6 +20,9 @@ public class Service extends Object {
         this.name = object.getString("name");
         this.price = object.getDouble("price");
         this.type = object.getString("type");
+        if (this.type == null) {
+            this.type = "COMBOS";
+        }
         this.duration = object.getInt("duration");
     }
 

@@ -73,6 +73,7 @@ public class AgendamentoInstance {
     }
 
     public void createAgendamento(Context context, ParseUser user, SaveCallback saveCallback) {
+        //TODO: Adapt to work with 10 minutes slots
         ArrayList<String> horarios = generateTimeSlots();
         ParseObject newSchedule = new ParseObject("Schedules");
         newSchedule.put("user",user);
